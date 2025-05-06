@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Cuestionario Interactivo V4</title> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"> <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+    <div id="welcome-screen" class="active">
+      <div class="welcome-content">
+          <div class="welcome-icon">🚀</div> <h1>¡Bienvenido al Cuestionario!</h1> <p>Demuestra tus conocimientos. ¡Mucha suerte!</p> <div class="quiz-info-grid">
+              <div class="info-item">
+                  <span class="info-value" id="total-questions-info">0</span>
+                  <span class="info-label">Preguntas</span>
+              </div>
+              <div class="info-item">
+                  <span class="info-value"><span id="time-per-question-info">0</span>s</span>
+                  <span class="info-label">por Pregunta</span>
+              </div>
+              <div class="info-item">
+                  <span class="info-value"><span id="total-time-info">0</span>m</span>
+                  <span class="info-label">Tiempo Total</span>
+              </div>
+          </div>
+
+          <button id="btn-start" type="button">EMPEZAR</button>
+        </div>
+    </div>
+
+    <div class="quiz-wrapper" style="display: none;">
+        <aside class="sidebar" id="question-nav" aria-label="Navegación de preguntas">
+            </aside>
+
+        <section class="main">
+            <header id="quiz-header">
+                <h1>Cuestionario Interactivo</h1>
+
+                <div class="timers-container" aria-live="polite">
+                    <div id="question-timer" class="timer">
+                        Pregunta: <span class="time" aria-label="Tiempo restante para la pregunta">--:--</span>
+                    </div>
+                    <div id="total-timer" class="timer">
+                        Total: <span class="time" aria-label="Tiempo restante total">--:--</span>
+                    </div>
+                </div>
+
+                <div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="progress-text-label">
+                  <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
+                </div>
+                <div id="progress-text" aria-live="polite"><span id="progress-text-label">Progreso:</span> 0 / 0 (0%)</div>
+            </header>
+
+            <main class="quiz" id="quiz-container" aria-live="polite">
+                </main>
+
+            <div class="buttons" id="quiz-buttons">
+                <button id="btn-skip" type="button">Posponer (P)</button> <button id="btn-next" type="button">Siguiente (→)</button> <button id="btn-submit" type="button">Finalizar</button> </div>
+
+            <div id="early-finish-container">
+                <a href="#" id="btn-early-finish" role="button">
+                    Finalizar cuestionario de forma anticipada
+                </a>
+            </div>
+
+             <section id="results-container" style="display: none;" aria-label="Resultados del cuestionario">
+                 <h2>Resultados Finales</h2> <div class="score-summary">
+                     <div><span class="score-value correct" id="correct-count">0</span><div class="score-label">Correctas</div></div>
+                     <div><span class="score-value incorrect" id="incorrect-count">0</span><div class="score-label">Incorrectas</div></div>
+                     <div><span class="score-value skipped" id="skipped-count">0</span><div class="score-label">Omitidas</div></div>
+                     <div><span class="score-value percentage" id="score-percentage">0%</span><div class="score-label">Puntaje</div></div>
+                 </div>
+
+                 <div class="chart-container" style="display: none;">
+                     <canvas id="infographic-chart" role="img" aria-label="Gráfico de distribución de respuestas"></canvas>
+                 </div>
+
+                 <div class="detailed-results">
+                     <h3>Resumen por Pregunta</h3>
+                     <div id="detailed-results-list">
+                         </div>
+                 </div>
+            </section>
+
+        </section> </div> <div id="custom-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-message" aria-modal="true">
+        <div class="modal-content" role="document">
+            <h2 id="modal-title" class="modal-title-text">Confirmación</h2>
+            <p id="modal-message">¿Estás seguro?</p>
+            <div class="modal-buttons">
+                <button id="modal-btn-confirm" class="modal-btn confirm" type="button">Sí</button>
+                <button id="modal-btn-cancel" class="modal-btn cancel" type="button">No</button>
+                <button id="modal-btn-ok" class="modal-btn ok" type="button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+
+</body>
+</html>

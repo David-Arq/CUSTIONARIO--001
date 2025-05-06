@@ -1,0 +1,1140 @@
+/*
+    ====================================================================
+    ||                       HOJA DE ESTILOS CSS                      ||
+    ====================================================================
+    Define la apariencia visual y el diseño del cuestionario interactivo.
+    Organizado por secciones para facilitar la navegación y comprensión.
+*/
+
+/* --- Variables CSS Globales --- */
+/*
+    Define un conjunto de propiedades personalizadas (variables CSS)
+    que almacenan valores comunes como colores, tamaños de sombra, bordes, etc.
+    Esto facilita la consistencia en todo el diseño y permite cambios globales rápidos.
+*/
+:root {
+    --primary: #6a11cb; /* Color principal (morado) */
+    --primary-light: #a367e8; /* Variante más clara del color principal */
+    --secondary: #2575fc; /* Color secundario (azul) */
+    --accent: rgba(40, 167, 69, 0.85); /* Color de acento/éxito (verde con transparencia) */
+    --accent-dark: rgba(33, 136, 56, 1); /* Variante oscura y sólida del color de acento */
+    --accent-solid: #28a745; /* Versión sólida del color de acento */
+    --danger: #ff4d6d; /* Color para errores/peligro (rojo) */
+    --warning: #ffcc00; /* Color para advertencias (amarillo) */
+    --bg: #f0f2f5; /* Color de fondo gris claro para elementos secundarios */
+    --card-bg: #ffffff; /* Color de fondo blanco para contenedores principales/tarjetas */
+    --body-bg-start: var(--primary); /* Color de inicio para el degradado de fondo del body */
+    --body-bg-end: var(--secondary); /* Color de fin para el degradado de fondo del body */
+    --text-primary: #333333; /* Color principal para el texto oscuro */
+    --text-secondary: #555555; /* Color secundario para el texto */
+    --text-light: #ffffff; /* Color para texto claro (sobre fondos oscuros) */
+    --border: #e0e0e0; /* Color general para bordes */
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Sombra estándar para elementos elevados */
+    --radius: 15px; /* Radio de borde estándar para elementos */
+    --transition: 0.3s ease-in-out; /* Duración y tipo de transición estándar */
+}
+
+/* --- Reset Básico y Estilos Globales --- */
+/*
+    Estilos base aplicados a la mayoría de los elementos
+    para resetear valores por defecto del navegador y establecer estilos generales.
+*/
+* {
+    box-sizing: border-box; /* Incluye padding y borde en el tamaño total del elemento */
+    margin: 0; /* Elimina márgenes por defecto */
+    padding: 0; /* Elimina rellenos por defecto */
+    outline: none; /* Elimina el contorno de enfoque por defecto (se manejará con :focus-visible) */
+}
+
+html {
+    scroll-behavior: smooth; /* Habilita el desplazamiento suave al usar anclas */
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Aplica la fuente Poppins */
+    color: var(--text-primary); /* Color de texto principal */
+    display: flex; /* Usa flexbox para centrar el contenido vertical y horizontalmente */
+    min-height: 100vh; /* Asegura que el body ocupe al menos el 100% de la altura de la ventana */
+    align-items: center; /* Centra los hijos verticalmente en un contenedor flex */
+    justify-content: center; /* Centra los hijos horizontalmente en un contenedor flex */
+    background: linear-gradient(135deg, var(--body-bg-start), var(--body-bg-end)); /* Aplica un degradado de fondo */
+    padding: 1rem; /* Padding alrededor del contenido principal */
+    overflow-x: hidden; /* Evita el scroll horizontal */
+}
+
+/* Clase para contenido solo visible para lectores de pantalla (accesibilidad) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Clase helper para ocultar elementos completamente, se usa con JS */
+.hidden {
+    display: none !important; /* Oculta el elemento y no ocupa espacio */
+}
+
+/* --- Pantalla de Bienvenida --- */
+/* Estilos para el contenedor de la pantalla de bienvenida */
+#welcome-screen {
+    position: fixed; /* Fija la pantalla de bienvenida para cubrir todo el viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: none; /* Fondo transparente inicialmente */
+    display: flex; /* Centra el contenido interno con flexbox */
+    align-items: center;
+    justify-content: center;
+    z-index: 100; /* Asegura que esté por encima de otros elementos */
+    color: var(--text-light); /* Color de texto claro */
+    text-align: center; /* Centra el texto */
+    padding: 2rem; /* Padding alrededor del contenido */
+    opacity: 1; /* Visible por defecto */
+    visibility: visible;
+    /* Transiciones para la animación de ocultar/mostrar */
+    transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+}
+
+/* Estado oculto de la pantalla de bienvenida */
+#welcome-screen.hidden {
+    opacity: 0; /* Hace que el elemento sea completamente transparente */
+    visibility: hidden; /* Oculta el elemento para lectores de pantalla y eventos de puntero */
+    /* Transición con delay para que la visibilidad cambie después de la opacidad */
+    transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+    pointer-events: none; /* Deshabilita eventos de ratón/táctiles */
+}
+
+/* Estilos para el contenedor interno del contenido de bienvenida */
+.welcome-content {
+    background: rgba(0, 0, 0, 0.45); /* Fondo semitransparente con efecto de cristal */
+    padding: 2.5rem 3rem;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Sombra pronunciada */
+    backdrop-filter: blur(6px); /* Efecto de desenfoque del fondo */
+    -webkit-backdrop-filter: blur(6px); /* Prefijo para compatibilidad con navegadores Webkit */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borde sutil semitransparente */
+    max-width: 650px;
+    /* Animación inicial para aparecer */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInWelcome 0.7s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* Keyframes para la animación de aparición del contenido de bienvenida */
+@keyframes fadeInWelcome {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para el icono de bienvenida */
+.welcome-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    display: inline-block; /* Permite aplicar transformaciones */
+    animation: floatIcon 3.5s ease-in-out infinite; /* Animación flotante */
+}
+
+/* Keyframes para la animación flotante del icono */
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+/* Estilos para el título H1 en la bienvenida */
+.welcome-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    color: #fff; /* Color blanco */
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3); /* Sombra de texto */
+}
+
+/* Estilos para el párrafo en la bienvenida */
+.welcome-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9); /* Color blanco ligeramente transparente */
+}
+
+/* Estilos para la cuadrícula de información del quiz en la bienvenida */
+.quiz-info-grid {
+    display: grid; /* Usa CSS Grid para la disposición en columnas */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Columnas responsivas */
+    gap: 1.5rem; /* Espacio entre elementos de la cuadrícula */
+    margin-bottom: 2.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.25); /* Borde superior semitransparente */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25); /* Borde inferior semitransparente */
+}
+
+/* Estilos para cada item de información dentro de la cuadrícula */
+.info-item {
+    display: flex; /* Usa flexbox para alinear contenido interno */
+    flex-direction: column; /* Organiza el contenido verticalmente */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1); /* Fondo muy ligeramente transparente */
+    padding: 1rem 0.5rem;
+    border-radius: calc(var(--radius) / 2); /* Radio de borde reducido */
+    transition: background 0.3s ease; /* Transición suave para el hover */
+}
+
+.info-item:hover {
+    background: rgba(255, 255, 255, 0.15); /* Ligero cambio de fondo al pasar el ratón */
+}
+
+/* Estilos para el valor numérico en el item de información */
+.info-value {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--accent-solid); /* Color de acento sólido */
+    line-height: 1.1;
+    margin-bottom: 0.2rem;
+}
+
+/* Estilos para los spans dentro de .info-value (como 's' o 'm') */
+.info-value span {
+    display: inline; /* Asegura que el span se muestre en línea */
+}
+
+/* Estilos para el segundo span dentro de .info-value (para unidades) */
+.info-value span + span {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8); /* Color blanco ligeramente transparente */
+    margin-left: 2px;
+}
+
+/* Estilos para la etiqueta de texto bajo el valor de información */
+.info-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75); /* Color blanco más transparente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+    margin-top: 0.3rem;
+}
+
+/* Estilos para el botón de empezar */
+#btn-start {
+    background: var(--accent-solid); /* Fondo con color de acento sólido */
+    color: var(--text-light); /* Texto blanco */
+    padding: 1rem 3rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition); /* Transición suave al interactuar */
+    margin-top: 2rem;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4); /* Sombra */
+    animation: pulseButton 2s infinite ease-in-out 1s; /* Animación de pulso con delay */
+}
+
+/* Estilos al pasar el ratón sobre el botón empezar */
+#btn-start:hover {
+    transform: translateY(-3px) scale(1.03); /* Ligero movimiento y aumento de tamaño */
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.5); /* Sombra más pronunciada */
+    background: var(--accent-dark); /* Color de fondo oscuro */
+}
+
+/* Keyframes para la animación de pulso del botón empezar */
+@keyframes pulseButton {
+    0% { box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4); transform: scale(1); }
+    50% { box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6); transform: scale(1.05); }
+    100% { box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4); transform: scale(1); }
+}
+
+/* --- Contenedor Principal del Quiz --- */
+/* Estilos para el contenedor que envuelve todo el quiz */
+.quiz-wrapper {
+    display: none; /* Oculto por defecto */
+    background-color: var(--card-bg); /* Fondo blanco */
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden; /* Recorta contenido que se salga (ej. esquinas redondeadas) */
+    width: 100%;
+    max-width: 1100px; /* Ancho máximo */
+    min-height: 85vh; /* Altura mínima */
+    opacity: 0; /* Inicialmente invisible para la transición */
+    transition: opacity 0.5s 0.1s ease-in; /* Transición de aparición */
+}
+
+/* Clase usada por JS para mostrar el contenedor del quiz */
+.quiz-wrapper.visible {
+    display: flex; /* Cambia a flexbox para disposición sidebar+main */
+    opacity: 1; /* Hace visible el contenedor */
+}
+
+/* --- Sidebar --- */
+/* Estilos para la barra lateral de navegación de preguntas */
+.sidebar {
+    width: 90px; /* Ancho fijo */
+    background: var(--bg); /* Fondo gris claro */
+    border-right: 1px solid var(--border); /* Borde a la derecha */
+    display: flex; /* Usa flexbox */
+    flex-direction: column; /* Apila los elementos verticalmente */
+    align-items: center; /* Centra horizontalmente los elementos */
+    padding: 1.5rem 0;
+    overflow-y: auto; /* Permite scroll vertical si el contenido excede la altura */
+    flex-shrink: 0; /* Evita que la sidebar se encoja */
+}
+
+/* Estilos para cada item individual en la sidebar (representando una pregunta) */
+.sidebar div {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+    display: flex; /* Usa flexbox para centrar el número/icono */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Forma circular */
+    font-weight: 600;
+    cursor: pointer; /* Indica que es interactuable */
+    position: relative; /* Necesario para posicionar el pseudo-elemento ::before */
+    transition: all var(--transition); /* Transición suave para interacciones */
+    border: 2px solid transparent; /* Borde transparente por defecto */
+    font-size: 1rem;
+}
+
+/* Estilos al pasar el ratón sobre un item de la sidebar */
+.sidebar div:hover {
+    transform: scale(1.08); /* Ligero aumento de tamaño */
+    background-color: var(--primary-light); /* Fondo más claro */
+    color: var(--text-light); /* Texto blanco */
+}
+
+/* Clases de estado para los items de la sidebar, aplicadas por JS */
+.sidebar div.answered { background: var(--accent); color: var(--text-light); border-color: var(--accent-dark); } /* Pregunta respondida correctamente */
+.sidebar div.skipped { background: var(--warning); color: var(--text-primary); border-color: darken(var(--warning), 10%); } /* Pregunta pospuesta */
+.sidebar div.unanswered { background: var(--border); color: var(--text-secondary); } /* Pregunta sin responder */
+
+/* Estilo para el item de la sidebar de la pregunta actualmente mostrada */
+.sidebar div.active {
+    box-shadow: 0 0 0 4px var(--secondary); /* Anillo de enfoque/activo */
+    transform: scale(1.08); /* Destacar con tamaño */
+    border-color: var(--secondary); /* Borde con color secundario */
+}
+
+/* Estilos para el pseudo-elemento ::before que muestra el número o ícono de estado */
+.sidebar div::before {
+    font-family: 'Poppins', sans-serif; /* Fuente para el contenido */
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute; /* Posiciona el pseudo-elemento sobre el div */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Contenido del pseudo-elemento según el estado */
+.sidebar div.answered::before { content: '✔'; font-size: 1.8rem; }
+.sidebar div.skipped::before { content: '?'; font-size: 1.8rem; }
+.sidebar div.unanswered::before { content: attr(data-number); font-size: 1.1rem; font-weight: 600; } /* Muestra el número de la pregunta */
+
+/* Estilos para el estado final de los items de la sidebar (en la pantalla de resultados) */
+.sidebar div.result-correct { background-color: var(--accent-solid); border-color: var(--accent-dark); color: var(--text-light); } /* Correcta */
+.sidebar div.result-incorrect { background-color: var(--danger); border-color: darken(var(--danger), 10%); color: var(--text-light); } /* Incorrecta */
+.sidebar div.result-skipped { background-color: var(--warning); border-color: darken(var(--warning), 10%); color: var(--text-primary); } /* Omitida */
+
+/* Ajuste de tamaño y color para el contenido del pseudo-elemento en resultados */
+.sidebar div.result-correct::before, .sidebar div.result-incorrect::before, .sidebar div.result-skipped::before { font-size: 1.8rem; color: inherit; }
+/* Contenido específico para el pseudo-elemento en resultados */
+.sidebar div.result-correct::before { content: '✔'; }
+.sidebar div.result-incorrect::before { content: '✖'; }
+.sidebar div.result-skipped::before { content: '?'; }
+
+/* --- Área Principal --- */
+/* Estilos para la sección principal del quiz (contiene header, main.quiz, botones, resultados) */
+.main {
+    flex: 1; /* Permite que esta sección crezca para ocupar el espacio restante */
+    display: flex;
+    flex-direction: column; /* Apila el contenido verticalmente */
+    padding: 1.5rem 2.5rem;
+    background-color: var(--card-bg); /* Fondo blanco */
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto; /* Permite scroll vertical si el contenido excede la altura */
+}
+
+/* Estilos para el encabezado dentro de la sección principal */
+header#quiz-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative; /* Necesario para posicionar los timers absolutos */
+    padding-top: 0.5rem;
+    min-height: 80px; /* Altura mínima para evitar colapso */
+}
+
+/* Estilos para el título H1 dentro del encabezado */
+header#quiz-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary); /* Color principal */
+    margin-bottom: 1rem;
+}
+
+/* --- Timers --- */
+/* Contenedor de los temporizadores (Pregunta y Total) */
+.timers-container {
+    position: absolute; /* Posiciona los timers independientemente del flujo normal */
+    top: 1.5rem; /* Distancia desde arriba */
+    right: 2rem; /* Distancia desde la derecha */
+    display: flex; /* Usa flexbox para alinear los timers horizontalmente */
+    gap: 1rem; /* Espacio entre timers */
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12); /* Sombra sutil */
+    z-index: 10; /* Asegura que estén por encima de otros elementos */
+}
+
+/* Estilos para cada elemento de timer individual */
+.timer {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-secondary); /* Color de texto secundario */
+    display: flex; /* Usa flexbox para alinear etiqueta y tiempo */
+    align-items: center;
+}
+
+/* Estilos para el span que muestra el tiempo MM:SS */
+.timer .time {
+    display: inline-block; /* Permite aplicar min-width */
+    min-width: 55px; /* Asegura espacio suficiente para los dígitos */
+    text-align: right; /* Alinea el tiempo a la derecha */
+    font-variant-numeric: tabular-nums; /* Alinea los dígitos verticalmente para que el ancho no cambie */
+    color: var(--primary); /* Color principal */
+    transition: color 0.3s ease; /* Transición para el cambio de color (warning/ahead) */
+    margin-left: 0.4rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* Clases para cambiar el color del tiempo según el estado */
+.timer .time.warning { color: var(--danger); } /* Tiempo bajo (rojo) */
+.timer .time.ahead { color: var(--accent-solid); } /* Adelantado al tiempo estimado (verde) */
+
+/* --- Progreso --- */
+/* Contenedor de la barra de progreso */
+.progress-container {
+    width: 100%;
+    height: 12px;
+    background: var(--border); /* Fondo gris del carril de la barra */
+    border-radius: var(--radius);
+    overflow: hidden; /* Oculta la parte de la barra que se sale de los bordes redondeados */
+    margin-top: 1.2rem;
+}
+
+/* La barra de progreso interior que se llena */
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--secondary), var(--primary-light)); /* Degradado de llenado */
+    width: 0%; /* Empieza vacío */
+    transition: width 0.5s ease; /* Animación suave al cambiar el ancho */
+    border-radius: var(--radius); /* Hereda el radio del contenedor */
+}
+
+/* Estilos para el texto que muestra el porcentaje y el conteo de preguntas */
+#progress-text {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary); /* Color de texto secundario */
+}
+
+/* --- Contenedor Quiz --- */
+/* Estilos para el área donde se muestra la pregunta actual */
+main.quiz {
+    flex: 1; /* Permite que esta sección crezca */
+    padding: 1.5rem 0.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea el contenido al inicio */
+    /* Transiciones para las animaciones fade-in/fade-out */
+    transition: opacity var(--transition), transform var(--transition);
+    opacity: 1; /* Visible por defecto */
+    transform: translateY(0);
+    min-height: 300px; /* Altura mínima para evitar colapso en preguntas cortas */
+}
+
+/* Clases para animaciones de transición entre preguntas (usadas por JS) */
+main.quiz.fade-out { opacity: 0; transform: translateY(-15px); } /* Se desvanece y sube ligeramente */
+main.quiz.fade-in { opacity: 1; transform: translateY(0); } /* Aparece y vuelve a su posición */
+
+/* Contenedor para la pregunta y sus opciones */
+.question-container {
+    margin-bottom: 2rem;
+}
+
+/* Estilos para el texto de la pregunta */
+.question {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary); /* Color de texto principal */
+    margin-bottom: 2.5rem;
+    line-height: 1.65; /* Altura de línea para mejor lectura */
+}
+
+/* --- Opciones --- */
+/* Fieldset invisible para agrupar las opciones semánticamente */
+.options-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Lista (ul) que contiene las opciones de respuesta */
+.options {
+    list-style: none; /* Elimina los marcadores de lista */
+    display: grid; /* Usa CSS Grid para la disposición de las opciones */
+    gap: 1.2rem; /* Espacio entre opciones */
+}
+
+/* Estilos para cada item de lista (li) que envuelve una opción */
+.options li {
+    background: var(--bg); /* Fondo gris claro */
+    border: 2px solid var(--border); /* Borde */
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+    cursor: pointer; /* Indica que es clickeable */
+    transition: all var(--transition); /* Transición suave */
+    position: relative; /* Necesario para el pseudo-elemento ::before */
+    overflow: hidden; /* Oculta el pseudo-elemento que se sale */
+}
+
+/* Pseudo-elemento ::before para el efecto hover de degradado */
+.options li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Empieza fuera del elemento a la izquierda */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(163, 103, 232, 0.1), transparent); /* Degradado semitransparente */
+    transition: left 0.4s ease; /* Transición para que se mueva de izquierda a derecha */
+    z-index: 0; /* Asegura que esté detrás del contenido */
+}
+
+/* Mueve el pseudo-elemento ::before al pasar el ratón */
+.options li:hover::before {
+    left: 100%; /* Termina fuera del elemento a la derecha */
+}
+
+/* Estilos al pasar el ratón sobre una opción */
+.options li:hover {
+    background: #e9eaf3; /* Ligero cambio de color de fondo */
+    border-color: var(--primary-light); /* Cambia color del borde */
+    transform: translateY(-4px) scale(1.01); /* Ligero movimiento y aumento de tamaño */
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.07); /* Sombra */
+}
+
+/* Oculta los input radio nativos */
+.options input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none; /* No interactuable con el puntero */
+}
+
+/* Estilos para la etiqueta (label) asociada al input radio */
+.options label {
+    display: block; /* Ocupa todo el espacio del LI para que sea clickeable */
+    font-size: 1.05rem;
+    color: var(--text-secondary); /* Color de texto secundario */
+    transition: color var(--transition); /* Transición para el cambio de color al seleccionar */
+    width: 100%;
+    height: 100%;
+    cursor: pointer; /* Indica que es clickeable */
+    position: relative;
+    z-index: 1; /* Asegura que la etiqueta esté sobre el pseudo-elemento */
+}
+
+/* Estilos para la letra de la opción (A, B, C, etc.) */
+.options .option-letter {
+    font-weight: 700;
+    margin-right: 0.5em;
+    color: var(--primary); /* Color principal */
+}
+
+/* Estilos para el item de lista (li) cuando el input radio DENTRO está marcado */
+.options li:has(input[type="radio"]:checked) {
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); /* Degradado de fondo */
+    border-color: var(--primary); /* Borde con color principal */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.35); /* Sombra destacada */
+    transform: translateY(-2px) scale(1.01); /* Ligero movimiento y aumento */
+}
+
+/* Estilos para la etiqueta y la letra de opción cuando el LI está seleccionado */
+.options li:has(input[type="radio"]:checked) label {
+    color: var(--text-light); /* Texto blanco */
+}
+.options li:has(input[type="radio"]:checked) .option-letter {
+    color: var(--text-light); /* Letra blanca */
+}
+
+/* Clase temporal para el efecto visual al seleccionar (usada por JS) */
+.options li.selected {
+    transform: scale(0.97); /* Ligeramente más pequeño */
+    opacity: 0.9; /* Ligeramente transparente */
+}
+
+/* --- Botones --- */
+/* Contenedor de los botones Siguiente, Posponer, Finalizar */
+.buttons {
+    display: flex; /* Usa flexbox para alinear los botones */
+    flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea en pantallas pequeñas */
+    justify-content: space-between; /* Distribuye el espacio entre los botones */
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border); /* Borde superior */
+    gap: 1rem; /* Espacio entre botones */
+}
+
+/* Estilos generales para todos los botones dentro de .buttons */
+.buttons button {
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); /* Degradado de fondo */
+    border: none;
+    color: var(--text-light); /* Texto blanco */
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.25s ease; /* Transición suave */
+    flex-grow: 0; /* No permite que los botones crezcan */
+    flex-shrink: 0; /* No permite que los botones se encojan */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Efectos al pasar el ratón sobre los botones */
+.buttons button:hover {
+    transform: translateY(-4px); /* Ligero movimiento hacia arriba */
+    box-shadow: 0 7px 18px rgba(106, 17, 203, 0.3); /* Sombra más pronunciada */
+}
+
+/* Efectos al hacer click activo en los botones */
+.buttons button:active {
+    transform: translateY(-1px) scale(0.98); /* Ligero movimiento hacia abajo y reducción */
+    box-shadow: 0 2px 5px rgba(106, 17, 203, 0.2); /* Sombra reducida */
+}
+
+/* Oculta botones específicos usando una clase aplicada por JS */
+.buttons button.hidden {
+    display: none;
+}
+
+/* Estilos específicos para el botón Posponer */
+#btn-skip {
+    background: var(--text-secondary); /* Fondo gris oscuro */
+}
+#btn-skip:hover {
+    background: #6c757d; /* Un gris un poco más oscuro */
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+/* Estilos específicos para el botón Finalizar */
+#btn-submit {
+    background: var(--accent-solid); /* Fondo verde sólido */
+    color: var(--text-light); /* Texto blanco */
+}
+#btn-submit:hover {
+    background: var(--accent-dark); /* Verde oscuro */
+    box-shadow: 0 7px 18px rgba(40, 167, 69, 0.3); /* Sombra */
+}
+
+/* Contenedor para el enlace de finalizar anticipadamente */
+#early-finish-container {
+    width: 100%;
+    text-align: center; /* Centra el enlace */
+    margin-top: 0.5rem;
+    padding-bottom: 1rem; /* Espacio debajo */
+}
+
+/* Estilos para el enlace de finalizar anticipadamente */
+#btn-early-finish {
+    font-size: 0.9rem;
+    color: var(--text-secondary); /* Color de texto secundario */
+    text-decoration: underline; /* Subrayado */
+    cursor: pointer;
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    padding: 0.3rem; /* Padding para área clickeable */
+    transition: color 0.2s ease; /* Transición para el color */
+}
+
+/* Estilos al pasar el ratón sobre el enlace de finalizar anticipadamente */
+#btn-early-finish:hover {
+    color: var(--primary); /* Cambia a color principal */
+}
+
+/* --- Sección de Resultados --- */
+/* Contenedor principal de la pantalla de resultados */
+#results-container {
+    display: none; /* Oculto por defecto */
+    padding: 2rem 1.5rem;
+    text-align: center; /* Centra el contenido */
+    animation: fadeInResults 0.6s ease-in-out; /* Animación de aparición */
+    background-color: var(--card-bg); /* Fondo blanco */
+    flex-grow: 1; /* Permite que crezca en altura */
+    overflow-y: auto; /* Permite scroll vertical */
+}
+
+/* Keyframes para la animación de aparición de los resultados */
+@keyframes fadeInResults {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos para el título H2 de la sección de resultados */
+#results-container h2 {
+    color: var(--primary); /* Color principal */
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+}
+
+/* Contenedor del resumen de puntuaciones (Correctas, Incorrectas, etc.) */
+.score-summary {
+    background-color: var(--bg); /* Fondo gris claro */
+    padding: 1.5rem 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    display: grid; /* Usa grid para la disposición */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Columnas responsivas */
+    gap: 1rem; /* Espacio entre items */
+    align-items: center;
+    box-shadow: var(--shadow); /* Sombra */
+}
+
+/* Estilos para cada div individual dentro del resumen de puntuaciones */
+.score-summary div {
+    text-align: center;
+}
+
+/* Estilos para el valor numérico de la puntuación */
+.score-summary .score-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+/* Estilos para la etiqueta de texto debajo del valor de la puntuación */
+.score-summary .score-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary); /* Color de texto secundario */
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+}
+
+/* Clases para el color del valor de la puntuación según su tipo */
+.score-summary .correct { color: var(--accent-solid); } /* Verde para correctas */
+.score-summary .incorrect { color: var(--danger); } /* Rojo para incorrectas */
+.score-summary .skipped { color: var(--warning); } /* Amarillo para omitidas */
+.score-summary .percentage { color: var(--secondary); } /* Azul para porcentaje */
+
+/* Contenedor del gráfico Chart.js */
+.chart-container {
+    display: none; /* Oculto por defecto (se muestra si Chart.js carga bien) */
+    width: 100%;
+    max-width: 350px; /* Ancho máximo del gráfico */
+    height: auto;
+    margin: 2rem auto; /* Centra el contenedor */
+    position: relative;
+}
+
+/* Estilos para el elemento canvas del gráfico */
+#infographic-chart {
+    display: block; /* Asegura que ocupe su propio espacio */
+    max-height: 350px; /* Altura máxima del gráfico */
+    /* !important puede ser necesario para sobrescribir estilos inline de Chart.js, usar con precaución */
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Contenedor para la lista de resultados detallados por pregunta */
+.detailed-results {
+    text-align: left; /* Alinea el texto a la izquierda dentro de esta sección */
+    margin-top: 2rem;
+}
+
+/* Estilos para el título H3 de los resultados detallados */
+.detailed-results h3 {
+    color: var(--secondary); /* Color secundario */
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border); /* Borde inferior */
+    padding-bottom: 0.7rem;
+}
+
+/* Estilos para cada item de resultado detallado (una pregunta en la lista) */
+.result-item {
+    background-color: var(--bg); /* Fondo gris claro */
+    padding: 1.2rem;
+    border-radius: calc(var(--radius) / 2); /* Radio de borde reducido */
+    margin-bottom: 1.2rem;
+    border-left: 6px solid; /* Borde izquierdo cuyo color indica el estado */
+    transition: box-shadow 0.3s ease; /* Transición para la sombra al pasar el ratón */
+}
+
+/* Sombra al pasar el ratón sobre un item de resultado */
+.result-item:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* Clases para el color del borde izquierdo según el estado del resultado */
+.result-item.correct { border-left-color: var(--accent-solid); } /* Verde */
+.result-item.incorrect { border-left-color: var(--danger); } /* Rojo */
+.result-item.skipped { border-left-color: var(--warning); } /* Amarillo */
+
+/* Estilos para los párrafos dentro de un item de resultado */
+.result-item p {
+    margin-bottom: 0.6rem;
+    line-height: 1.55;
+}
+
+/* Estilos para el texto de la pregunta dentro de un item de resultado */
+.result-item .question-text {
+    font-weight: 600;
+    color: var(--text-primary); /* Color de texto principal */
+    margin-bottom: 0.8rem;
+}
+
+/* Estilos para el span que envuelve la respuesta del usuario dentro del item */
+.result-item .user-answer span { font-weight: normal; }
+/* Estilos para la letra de la opción (A, B, C) dentro de la respuesta del usuario */
+.result-item .user-answer span .option-letter { font-weight: bold; }
+
+/* Estilos para el span que envuelve la respuesta correcta dentro del item */
+.result-item .correct-answer span { font-weight: normal; color: var(--accent-solid); } /* Verde */
+/* Estilos para la letra de la opción correcta */
+.result-item .correct-answer span .option-letter { font-weight: bold; }
+
+/* Estilos de color para la respuesta del usuario si es incorrecta o omitida */
+.result-item .user-answer.incorrect span { color: var(--danger); } /* Rojo si incorrecta */
+.result-item .user-answer.skipped span { color: var(--warning); font-style: italic; } /* Amarillo y cursiva si omitida */
+
+/* Estilos generales para la letra de la opción en los resultados detallados */
+.result-item .option-letter {
+    font-weight: bold;
+    margin-right: 0.5em;
+}
+
+/* --- Estilos :focus-visible para Accesibilidad --- */
+/*
+    Define un estilo de enfoque claro cuando un elemento es enfocado
+    mediante teclado o métodos de entrada no-pointer. Mejora la accesibilidad.
+*/
+button:focus-visible,
+a:focus-visible,
+/* Estilo de foco aplicado a la etiqueta cuando su input radio asociado tiene foco */
+.options li input[type="radio"]:focus-visible + label,
+/* Estilo de foco para los items de navegación en la sidebar */
+.sidebar div:focus-visible {
+    outline: 3px solid var(--secondary); /* Contorno de enfoque */
+    outline-offset: 3px; /* Espacio entre el elemento y el contorno */
+    box-shadow: 0 0 0 5px rgba(76, 37, 252, 0.4); /* Sombra alrededor del contorno */
+    border-radius: 4px; /* Radio de borde para el contorno */
+}
+
+/* Estilo adicional para resaltar el LI completo cuando un radio DENTRO tiene foco */
+.options li:has(input[type="radio"]:focus-visible) {
+    border-color: var(--secondary) !important; /* Borde con color secundario */
+    box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.3); /* Sombra alrededor del LI */
+}
+
+/* --- Modal Personalizado --- */
+/* Overlay oscuro que cubre toda la pantalla detrás del modal */
+.modal-overlay {
+    position: fixed; /* Fijo para cubrir todo el viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65); /* Fondo semi-transparente oscuro */
+    display: flex; /* Usa flexbox para centrar el contenido del modal */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Asegura que esté por encima de todo lo demás */
+    opacity: 0; /* Inicialmente invisible */
+    visibility: hidden; /* Oculto para lectores de pantalla y eventos */
+    /* Transición para aparecer/desaparecer suavemente */
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+/* Estado visible del overlay modal */
+.modal-overlay[aria-hidden="false"] {
+    opacity: 1; /* Hace visible el overlay */
+    visibility: visible;
+    transition: opacity 0.3s ease; /* Transición solo para opacidad al mostrar */
+}
+
+/* Contenedor del contenido visible del modal */
+.modal-content {
+    background-color: var(--card-bg); /* Fondo blanco */
+    padding: 2rem 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2); /* Sombra del modal */
+    max-width: 480px; /* Ancho máximo */
+    width: 90%; /* Ancho por defecto (responsivo) */
+    text-align: center; /* Centra el texto dentro del modal */
+    /* Transformación inicial para la animación de entrada */
+    transform: scale(0.95) translateY(-10px);
+    /* Transición para la animación de entrada/salida */
+    transition: transform 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28); /* Curva de animación con efecto de "rebote" ligero */
+}
+
+/* Aplica la transformación final cuando el overlay está visible */
+.modal-overlay[aria-hidden="false"] .modal-content {
+    transform: scale(1) translateY(0); /* Vuelve a tamaño normal y posición */
+}
+
+/* Estilos para el título del modal */
+.modal-title-text {
+    color: var(--primary); /* Color principal */
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+/* Estilos para el mensaje del modal */
+#modal-message {
+    color: var(--text-secondary); /* Color de texto secundario */
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    white-space: pre-line; /* Permite que los saltos de línea (\n) funcionen en el mensaje */
+}
+
+/* Contenedor de los botones del modal */
+.modal-buttons {
+    display: flex; /* Usa flexbox para alinear los botones */
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 1rem; /* Espacio entre botones */
+    flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea */
+}
+
+/* Estilos generales para los botones del modal */
+.modal-btn {
+    border: none;
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.25s ease; /* Transición suave */
+    min-width: 110px; /* Ancho mínimo para consistencia */
+}
+
+/* Estilos para los botones de Confirmar y OK */
+.modal-btn.confirm,
+.modal-btn.ok {
+    background-color: var(--primary); /* Fondo con color principal */
+    color: var(--text-light); /* Texto blanco */
+    box-shadow: 0 4px 10px rgba(106, 17, 203, 0.2); /* Sombra */
+}
+
+/* Efectos hover para Confirmar y OK */
+.modal-btn.confirm:hover,
+.modal-btn.ok:hover {
+    background-color: darken(var(--primary), 10%); /* Oscurece el color (si el preprocesador CSS lo soporta, si no es un color fijo) */
+    transform: translateY(-2px); /* Ligero movimiento hacia arriba */
+    box-shadow: 0 6px 15px rgba(106, 17, 203, 0.3); /* Sombra más pronunciada */
+}
+
+/* Estilos para el botón Cancelar */
+.modal-btn.cancel {
+    background-color: var(--text-secondary); /* Fondo gris oscuro */
+    color: var(--text-light); /* Texto blanco */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Efectos hover para Cancelar */
+.modal-btn.cancel:hover {
+    background-color: darken(var(--text-secondary), 10%); /* Oscurece el color */
+    transform: translateY(-2px); /* Ligero movimiento hacia arriba */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/*
+    Controla la visibilidad de los botones del modal
+    dependiendo del atributo data-modal-type en el overlay.
+*/
+/* Oculta los botones Confirmar y Cancelar en modals de tipo 'alert' */
+.modal-overlay[data-modal-type="alert"] .modal-btn.confirm,
+.modal-overlay[data-modal-type="alert"] .modal-btn.cancel {
+    display: none;
+}
+/* Oculta el botón OK en modals de tipo 'confirm' */
+.modal-overlay[data-modal-type="confirm"] .modal-btn.ok {
+    display: none;
+}
+
+/* --- Estilos Responsivos --- */
+/*
+    Sección de Media Queries para ajustar el diseño en diferentes tamaños de pantalla.
+    Define puntos de quiebre y aplica estilos específicos para cada rango.
+*/
+
+/* Estilos para pantallas hasta 1150px */
+@media (max-width: 1150px) {
+    .quiz-wrapper {
+        max-width: 95%; /* Reduce el ancho máximo del contenedor principal */
+    }
+    .main {
+        padding: 1.5rem 2rem; /* Reduce el padding lateral del área principal */
+    }
+}
+
+/* Estilos para pantallas hasta 992px (Típico tablet grande) */
+@media (max-width: 992px) {
+    .quiz-wrapper {
+        min-height: 90vh; /* Aumenta la altura mínima del contenedor */
+    }
+    .main {
+        padding: 1.5rem; /* Reduce aún más el padding del área principal */
+    }
+    header#quiz-header {
+        padding-top: 3.5rem; /* Aumenta padding superior para dar espacio a timers */
+        min-height: 70px;
+    }
+    header#quiz-header h1 {
+        font-size: 1.8rem; /* Reduce el tamaño del título H1 */
+    }
+    .timers-container {
+        top: 1rem; /* Ajusta la posición de los timers */
+        right: 1.5rem;
+        padding: 0.4rem 0.8rem;
+        gap: 0.8rem;
+    }
+    .timer { font-size: 0.85rem; } /* Reduce el tamaño de fuente de los timers */
+    .timer .time { min-width: 50px; font-size: 0.9rem;} /* Ajusta el tiempo */
+
+    .question { font-size: 1.2rem; } /* Reduce el tamaño de fuente de la pregunta */
+    .options li { padding: 0.9rem 1.1rem; } /* Reduce el padding de las opciones */
+    .options label { font-size: 1rem; } /* Reduce el tamaño de fuente de las opciones */
+
+    .buttons button { padding: 0.8rem 1.5rem; font-size: 0.9rem; } /* Reduce padding y fuente de botones */
+
+    .score-summary { grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 0.8rem;} /* Ajusta grid de resumen */
+    .score-summary .score-value { font-size: 2rem; } /* Reduce tamaño de valores de puntuación */
+
+    .sidebar { width: 80px; } /* Reduce ancho de la sidebar */
+    .sidebar div { width: 45px; height: 45px; } /* Reduce tamaño de items de sidebar */
+    .sidebar div::before { font-size: 1.3rem; } /* Reduce tamaño de número/icono en sidebar */
+
+    .modal-content { max-width: 400px; padding: 1.8rem 2rem;} /* Ajusta modal */
+    .modal-title-text { font-size: 1.5rem;}
+    #modal-message { font-size: 1rem;}
+}
+
+/* Estilos para pantallas hasta 768px (Típico tablet pequeña o móvil grande) */
+@media (max-width: 768px) {
+    body {
+        padding: 0; /* Elimina el padding del body */
+        align-items: stretch; /* Permite que el contenido principal se estire verticalmente */
+    }
+    .quiz-wrapper {
+        flex-direction: column; /* Apila sidebar y main verticalmente */
+        max-width: 100%; /* Ocupa todo el ancho */
+        min-height: 100vh; /* Ocupa toda la altura */
+        border-radius: 0; /* Elimina bordes redondeados */
+        box-shadow: none; /* Elimina sombra */
+    }
+    .sidebar {
+        width: 100%; /* Ocupa todo el ancho */
+        flex-direction: row; /* Dispone items horizontalmente */
+        overflow-x: auto; /* Permite scroll horizontal en la sidebar */
+        padding: 0.5rem;
+        border-right: none; /* Elimina borde derecho */
+        border-bottom: 1px solid var(--border); /* Añade borde inferior */
+        order: 1; /* Coloca la sidebar encima del main */
+        flex-wrap: nowrap; /* Evita que los items de sidebar se envuelvan */
+        justify-content: flex-start; /* Alinea items al inicio */
+        align-items: center;
+        height: 65px; /* Altura fija para la sidebar horizontal */
+    }
+    .sidebar div { width: 45px; height: 45px; margin-bottom: 0; margin-right: 0.8rem; flex-shrink: 0; } /* Ajusta items sidebar */
+    .sidebar div::before { font-size: 1.3rem; }
+
+    .main {
+        padding: 1rem; /* Reduce padding del main */
+        order: 2; /* Coloca el main debajo de la sidebar */
+        flex: 1; /* Permite que crezca */
+        display: flex;
+        flex-direction: column;
+    }
+    header#quiz-header {
+        margin-bottom: 1rem;
+        padding-top: 0; /* Elimina padding superior */
+        min-height: 0;
+    }
+    header#quiz-header h1 { font-size: 1.6rem; } /* Reduce título H1 */
+    /* Los timers se mueven a una posición estática y centrada */
+    .timers-container { position: static; margin: 0.5rem auto 1rem; justify-content: center; width: fit-content; order: -1; }
+
+    .question { font-size: 1.1rem; margin-bottom: 1.8rem; } /* Ajusta pregunta */
+    .options { gap: 0.8rem; } /* Reduce espacio entre opciones */
+    .options li { padding: 0.9rem; } /* Reduce padding de opciones */
+    .options label { font-size: 0.95rem; } /* Ajusta fuente de opciones */
+
+    .buttons {
+        flex-direction: column; /* Apila los botones verticalmente */
+        gap: 0.8rem;
+        margin-top: auto; /* Empuja los botones al final del contenedor main */
+        padding-top: 1.5rem;
+    }
+    .buttons button { width: 100%; padding: 1rem; font-size: 1rem;} /* Botones ocupan todo el ancho */
+    #early-finish-container { margin-top: 1rem; padding-bottom: 0.5rem;} /* Ajusta enlace finalizar anticipado */
+
+    .score-summary { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1rem; } /* Ajusta grid de resumen a 2 columnas */
+    .score-summary .score-value { font-size: 1.8rem; } /* Reduce tamaño valores */
+    #results-container { padding: 1.5rem 1rem; } /* Reduce padding resultados */
+    #results-container h2 { font-size: 1.8rem; } /* Reduce título resultados */
+    .chart-container { max-width: 90%; } /* Ajusta ancho gráfico */
+    #infographic-chart { max-height: 280px; } /* Ajusta altura gráfico */
+
+    .welcome-content { padding: 2rem; } /* Ajusta bienvenida */
+    .welcome-content h1 { font-size: 2rem; }
+    .welcome-content p { font-size: 1rem; }
+    .quiz-info-grid { grid-template-columns: 1fr; gap: 1rem; padding: 1rem 0; margin-bottom: 2rem; } /* Grid bienvenida a 1 columna */
+    .info-value { font-size: 2.2rem; }
+
+    .modal-content { width: 90%; padding: 1.5rem; } /* Ajusta modal */
+    .modal-title-text { font-size: 1.4rem;}
+    #modal-message { font-size: 1rem;}
+    .modal-buttons { flex-direction: column; } /* Botones modal apilados */
+}
+
+/* Estilos para pantallas hasta 480px (Móvil pequeño) */
+@media (max-width: 480px) {
+    header#quiz-header h1 { font-size: 1.4rem; } /* Reduce título H1 */
+    .timers-container { gap: 0.8rem; flex-wrap: wrap; justify-content: center;} /* Timers envueltos y centrados */
+    .timer { font-size: 0.8rem; flex-basis: 45%; justify-content: center;} /* Ajusta timers */
+
+    .question { font-size: 1rem; } /* Reduce tamaño de pregunta */
+    .options li { padding: 0.8rem; } /* Reduce padding opciones */
+    .options label { font-size: 0.9rem; } /* Ajusta fuente opciones */
+    .buttons button { padding: 0.9rem; font-size: 0.95rem; } /* Ajusta botones */
+
+    .score-summary { grid-template-columns: 1fr; gap: 0.8rem;} /* Grid resumen a 1 columna */
+    .score-summary div { padding-bottom: 0.5rem; }
+    #results-container { padding: 1rem 0.8rem; } /* Reduce padding resultados */
+
+    .welcome-content { padding: 1.5rem; } /* Ajusta bienvenida */
+    .welcome-content h1 { font-size: 1.8rem; }
+    .info-value { font-size: 2rem; }
+
+    .modal-content { padding: 1.2rem; } /* Ajusta modal */
+    .modal-title-text { font-size: 1.3rem;}
+    #modal-message { font-size: 0.95rem;}
+    .modal-btn { width: 100%; } /* Botones modal ocupan todo el ancho */
+}
