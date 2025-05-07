@@ -20,15 +20,783 @@
  * - `answer` (string): La letra (A, B, C...) de la opción correcta.
  */
 const PREGUNTAS = [
-    // ========================================================================
-    // == ¡¡¡IMPORTANTE!!! REEMPLAZA ESTE EJEMPLO CON TU ARRAY questions REAL ==
-    // ========================================================================
-    // Las preguntas de ejemplo proporcionadas. ¡Asegúrate de reemplazarlas con tus preguntas reales!
-    { question: `1. La conducta dolosa o culposa, atribuible a una persona que realiza gestión fiscal hace referencia al actuar o proceder del servidor público o del particular que por una gestión fiscal antieconómica, ineficaz, ineficiente, inequitativa e inoportuna o una gestión que no cumple con los cometidos y fines esenciales del Estado, ocasiona el daño patrimonial. De lo anterior se colige que la conducta dolosa o culposa:`, options: ["A. Es aquella relación o vínculo que debe existir entre el daño al erario y la conducta dolosa o gravemente culposa, que serviría para concluir que el daño es consecuencia directa del hecho atribuible a una persona.", "B. Es la lesión o menoscabo causado al patrimonio público, representado en el deterioro de los bienes o recursos públicos.", "C. Se entiende como la acción u omisión del servidor o particular; es decir, hace referencia a la conducta que se afirma, causa el daño a la entidad."], answer: "C" },
-    { question: `2. El funcionario encargado del proceso considera improcedente la adenda porque:`, options: ["A. Las adendas se destinan para efectos de cambios técnicos de la metodología de selección.", "B. Las adendas al pliego de condiciones deben ser debatidas por los oferentes antes de su publicación para su validez.", "C. Las adendas de esta naturaleza se deben efectuar antes de la presentación de ofertas."], answer: "C" },
-    { question: `3. La comunicación posterior que exige ocho millones más constituye violación del:`, options: ["A. Principio de respeto al acto propio que conlleva violación de los principios de confianza legítima y buena fe.", "B. Derecho fundamental del debido proceso que conlleva violación de los principios de autonomía de la voluntad y la igualdad.", "C. Derecho al buen nombre que conlleva violación de los principios de buena fe y debido proceso."], answer: "A" }
-    // Puedes añadir más preguntas aquí siguiendo el mismo formato.
-    // ========================================================================
+    {
+        question: `1. La responsabilidad fiscal tiene por objeto el resarcimiento de los daños ocasionados al patrimonio público como consecuencia de la conducta dolosa o culposa de quienes realizan gestión fiscal mediante el pago de una indemnización pecuniaria que compense el perjuicio sufrido por la respectiva entidad estatal. La conducta dolosa o culposa está integrada por: una conducta dolosa o culposa, atribuible a una persona que realiza gestión fiscal; un daño patrimonial al Estado; y un nexo causal entre los dos elementos anteriores. La conducta dolosa o culposa, atribuible a una persona que realiza gestión fiscal hace referencia al actuar o proceder del servidor público o del particular que por una gestión fiscal antieconómica, ineficaz, ineficiente, inequitativa e inoportuna o una gestión que no cumple con los cometidos y fines esenciales del Estado, ocasiona el daño patrimonial. De lo anterior se colige que la conducta dolosa o culposa:`,
+        options: [
+            "A. Es aquella relación o vínculo que debe existir entre el daño al erario y la conducta dolosa o gravemente culposa, que serviría para concluir que el daño es consecuencia directa del hecho atribuible a una persona.",
+            "B. Es la lesión o menoscabo causado al patrimonio público, representado en el deterioro de los bienes o recursos públicos.",
+            "C. Se entiende como la acción u omisión del servidor o particular; es decir, hace referencia a la conducta que se afirma, causa el daño a la entidad."
+        ],
+        answer: "C"
+    },
+    {
+        question: `2. El ordenador del gasto requiere adelantar un proceso de contratación para reparar la fachada de la entidad, para ello decide hacer apertura de un proceso de licitación pública. Se designa al secretario del despacho para que estructure y adelante el proceso precontractual. Dentro de la evaluación de ofertas, el nominador de la entidad pretende modificar el pliego de condiciones mediante adenda, con el objeto de modificar la calidad de los materiales para la reparación. Sin embargo, el funcionario encargado del proceso encuentra que la misma es improcedente porque:`,
+        options: [
+            "A. Las adendas se destinan para efectos de cambios técnicos de la metodología de selección.",
+            "B. Las adendas al pliego de condiciones deben ser debatidas por los oferentes antes de su publicación para su validez.",
+            "C. Las adendas de esta naturaleza se deben efectuar antes de la presentación de ofertas."
+        ],
+        answer: "C"
+    },
+    {
+        question: `3. La entidad Vivienda Buena le otorga paz y salvo sobre crédito de vivienda al señor Óscar. Dos meses después, le envía comunicación diciéndole que hubo un equívoco y que aún adeuda ocho millones de pesos sobre su crédito. El argumento que denota el vicio de constitucionalidad existente en el texto es que hay una violación del:`,
+        options: [
+            "A. Principio de respeto al acto propio que conlleva la violación de los principios de confianza legítima y buena fe.",
+            "B. Derecho fundamental del debido proceso que conlleva la violación de los principios de la autonomía de la voluntad y la igualdad.",
+            "C. Derecho al buen nombre que conlleva la violación de los principios de la buena fe y el debido proceso."
+        ],
+        answer: "A"
+    },
+    {
+        question: `4. Por medio de la Ley 1150 de 2007 se introducen medidas para la eficiencia y la transparencia en la Ley 80 de 1993 y se dictan otras disposiciones generales sobre la contratación con Recursos Públicos. Según las disposiciones de esta Ley, en contratación estatal es factible la delegación de las actuaciones contractuales. El delegante responde cuando haya incurrido en dolo o culpa grave en el ejercicio de dicha función, toda vez que conserva:`,
+        options: [
+            "A. La dirección de la gestión precontractual y contractual.",
+            "B. El deber de control y vigilancia de la actividad precontractual y contractual.",
+            "C. La titularidad de la función precontractual y contractual.",
+            "D. La discrecionalidad de terminar en cualquier momento la delegación."
+        ],
+        answer: "B"
+    },
+    {
+        question: `5. En una entidad pública de orden nacional decidieron pagarle a cada uno de los hijos de todo exfuncionario fallecido, un sueldo equivalente a la pensión que su padre tenía si se jubiló, o que le correspondería tener de haberse jubilado. Frente a esta situación de gasto injustificado de recursos, debe intervenir:`,
+        options: [
+            "A. La Contraloría General de la República.",
+            "B. El Congreso de la República.",
+            "C. El ministro de Hacienda."
+        ],
+        answer: "A"
+    },
+    {
+        question: `6. La vigilancia y el control fiscal son una función pública que ejercerá la Contraloría General de la República, la cual vigila la gestión fiscal de la administración y de los particulares o entidades que manejen fondos o bienes públicos. El control fiscal se ejercerá en forma posterior y selectiva, y además:`,
+        options: [
+            "A. Podrá ser preventivo y concomitante, según sea necesario para garantizar la defensa y protección del patrimonio público.",
+            "B. Implicará en cierta medida una coadministración y se realizará en tiempo real a través del seguimiento permanente de los ciclos, uso, ejecución, contratación e impacto de los recursos públicos.",
+            "C. Hará uso de tecnologías de la información, dando principal participación al control social y con apoyo supletorio del control interno."
+        ],
+        answer: "A"
+    },
+    {
+        question: `7. Texto de referencia "Josiah Royce ha formulado lo siguiente: Imaginemos que una porción del suelo de Inglaterra ha sido nivelada perfectamente y que en ella traza un cartógrafo un mapa de Inglaterra. La obra es perfecta: no hay detalle del suelo de Inglaterra, por diminuto que sea, que no esté registrado en el mapa; todo tiene allí su correspondencia. Ese mapa; en tal caso, debe contener un mapa del mapa, que debe contener un mapa del mapa del mapa, y así hasta el infinito." La expresión "todo tiene allí su correspondencia", indica que:`,
+        options: [
+            "A. Hay una relación biunívoca entre el mapa y el territorio.",
+            "B. Una parte del mapa interactúa con una parte del territorio.",
+            "C. Hay un diálogo entre la cosa representada y lo que la representa.",
+            "D. Hay una proporción parecida pero no igual entre ambos."
+        ],
+        answer: "A"
+    },
+    {
+        question: `8. El Estado colombiano, en repetidas ocasiones, se ha visto afectado por la falta de principios y valores humanos de los servidores que laboran en las entidades públicas, por el abandono moral y el desvío de la conducta ética, derivados, en parte, por la falta de conciencia en la responsabilidad social de su ejercicio. Ante esta situación, es deber de los servidores:`,
+        options: [
+            "A. Velar por la protección de la integridad del espacio público.",
+            "B. Planificar el manejo y aprovechamiento de los recursos.",
+            "C. Proponer las iniciativas que estime útiles para el mejoramiento del servicio.",
+            "D. Resolver los asuntos, independiente del orden que vayan ingresando a su dependencia."
+        ],
+        answer: "C"
+    },
+    {
+        question: `9. Una entidad del orden nacional requiere establecer acciones, métodos y procedimientos de control y gestión de riesgo, de tal manera que se logre implementar bajo la estructura del Modelo Estándar de Control Interno (MECI). Un ejemplo de las acciones y métodos que debe implementar la entidad es la política de gestión de riesgos. Antes de ejecutarlo, el director de Planeación, en reunión con los profesionales del área, determina que se deben:`,
+        options: [
+            "A. Definir los objetivos de la entidad con suficiente claridad.",
+            "B. Analizar los posibles actos de corrupción al interior de la entidad.",
+            "C. Identificar las causas de los eventos que afecten la entidad."
+        ],
+        answer: "C"
+    },
+    {
+        question: `10. El Contralor será elegido por el Congreso en Pleno, por mayoría absoluta, en el primer mes de sus sesiones para un periodo igual al del Presidente de la República, de lista de elegibles conformada por convocatoria pública con base en lo dispuesto en el artículo 126 de la Constitución y no podrá ser reelegido ni continuar en ejercicio de sus funciones al vencimiento del mismo. Para ser elegido Contralor General de la República:`,
+        options: [
+            "A. No se precisa ser colombiano de nacimiento pero sí estar en ejercicio de la ciudadanía; además debe ser persona mayor de 35 años, de edad; tener título universitario en ciencias jurídicas, humanas, económicas, o financieras.",
+            "B. Podrá aspirar quien sea o haya sido miembro del Congreso o se haya desempeñado como gestor fiscal del orden nacional, en el año inmediatamente anterior a la elección.",
+            "C. En ningún caso podrán intervenir en su postulación o elección personas que se hallen dentro del cuarto grado de consanguinidad, segundo de afinidad y primero civil o legal respecto de los candidatos."
+        ],
+        answer: "C"
+    },
+    {
+        question: `11. Una de las principales modificaciones que tuvo la Constitución Política de 1991 fue la introducción de la figura de la reelección del presidente de la República para los comicios de mayo del 2006. Uno de los siguientes mecanismos permite hacer modificaciones de esta naturaleza a la Constitución política colombiana:`,
+        options: [
+            "A. La votación favorable a un plebiscito convocado por el presidente.",
+            "B. La aprobación de un proyecto de ley en el Congreso de la República.",
+            "C. La realización de un referendo aprobado por el pueblo.",
+            "D. La expedición de una ley por el Ministerio de Justicia."
+        ],
+        answer: "C"
+    },
+    {
+        question: `12. Situación Luis tiene 6 libros en un estante: Razonamiento matemático, Razonamiento verbal, Lengua, Física, Historia y Geografía. Si se sabe que: El libro de Razonamiento verbal está junto y a la izquierda del de Lengua. El libro de Física está a la derecha del de Razonamiento verbal y a la izquierda del libro de Historia. El libro de Historia está junto y a la izquierda del de Geografía. El libro de Razonamiento matemático está a la izquierda del de Lengua. ¿Qué libro ocupa el cuarto lugar si lo contamos de izquierda a derecha?`,
+        options: [
+            "A. Lengua",
+            "B. Física",
+            "C. Historia",
+            "D. Razonamiento matemático"
+        ],
+        answer: "B"
+    },
+    {
+        question: `13. Los Servidores Públicos en el desarrollo de sus funciones pueden llegar a incurrir en diferentes tipos de responsabilidades. Una actuación que no se ajuste a la ley y/o a los reglamentos puede originar consecuencias de orden Fiscal, Penal, Disciplinaria y Civil. Cuando hablamos de delitos contra la administración pública, anotamos que estos se materializan con conductas:`,
+        options: [
+            "A. Que atentan contra la función o gestión pública, los bienes públicos, o los servidores públicos.",
+            "B. Adelantadas por los servidores públicos que actúan faltando a la moralidad y la ética.",
+            "C. Con la participación de un servidor público en calidad de sujeto activo en la comisión del delito."
+        ],
+        answer: "A"
+    },
+    {
+        question: `14. Luego de realizarse una auditoría interna al área de Talento Humano de la entidad en la que usted labora, se encontró que en algunas historias laborales hay documentos deteriorados. Usted como encargado del archivo, se encuentra preocupado con esta situación, dado que próximamente se realizará una auditoría externa. El plan de mejoramiento que usted propone sobre el estado de los documentos de las historias laborales, debe contemplar:`,
+        options: [
+            "A. Eliminar los documentos que están deteriorados y foliar nuevamente toda la carpeta.",
+            "B. Realizar una copia de los deteriorados y realizar un proceso de transferencia de información.",
+            "C. Separar los documentos deteriorados y de buen uso, generando carpetas para cada grupo."
+        ],
+        answer: "C" // Corregido según la tabla de respuestas proporcionada (C)
+    },
+    {
+        question: `15. Los organismos de control fiscal en el desarrollo de sus funciones cuentan con diversas facultades. Una de ellas consiste en adelantar las investigaciones que estimen convenientes para establecer la ocurrencia de hechos generadores de daño patrimonial al Estado. Los servidores de las contralorías que realicen funciones de investigación o de indagación, o que estén comisionados para la práctica de pruebas en el proceso de responsabilidad fiscal:`,
+        options: [
+            "A. No tienen el carácter de autoridad de policía judicial, si bien pueden adelantar oficiosamente las indagaciones preliminares que se requieran.",
+            "B. En ejercicio de sus funciones no podrán exigir la colaboración gratuita de las autoridades de todo orden.",
+            "C. Podrán denunciar bienes de los presuntos responsables para que se tomen medidas cautelares, sin necesidad de prestar caución."
+        ],
+        answer: "C" // Corregido según la tabla de respuestas proporcionada (C)
+    },
+    {
+        question: `16. Un funcionario público que ha cometido una falta disciplinaria en la entidad donde laboraba fue sancionado con suspensión temporal de 30 días por parte de la Procuraduría Delegada. Una vez revisada la sanción dos años después, se reabrió el procedimiento y se determinó que la sanción del funcionario debía ser de 60 días, por lo cual se le impusieron 30 días más de suspensión. Respecto a esta sanción de carácter disciplinario se aplica en favor del funcionario el principio de:`,
+        options: [
+            "A. Legalidad.",
+            "B. Culpabilidad.",
+            "C. Favorabilidad.",
+            "D. Ejecutoriedad."
+        ],
+        answer: "C"
+    },
+    {
+        question: `17. En el punto de recepción de la entidad se encuentra un ciudadano que se comunica usando lenguaje de señas, a quien se le niega la atención pues es difícil comprender lo que desea. Ante esta situación usted:`,
+        options: [
+            "A. Habla con la persona de recepción para que busque una solución pues como todos tiene el derecho a recibir la atención.",
+            "B. Le indica al ciudadano que debe solicitar la atención por otro medio que posibilite brindarle una adecuada atención.",
+            "C. Comenta la situación con el supervisor del funcionario de recepción para que tome las medidas necesarias a futuro."
+        ],
+        answer: "A"
+    },
+    {
+        question: `18. La selección del contratista no está supeditada a la libre discrecionalidad de la Administración pública, sino que debe sujetarse a requisitos y procedimientos establecidos en la ley, garantizando principios como transparencia, igualdad y moralidad. De conformidad con el Artículo 2 de la Ley 1150 de 2007, en una entidad territorial, la escogencia del contratista no se realiza con arreglo a las modalidades de:`,
+        options: [
+            "A. Licitación pública, selección abreviada.",
+            "B. Contratación de Mínima cuantía, licitación pública.",
+            "C. Contratación directa, subasta invertida."
+        ],
+        answer: "C"
+    },
+    {
+        question: `19. La Constitución Política de 1991 estableció mecanismos de protección de Derechos Humanos como la Acción Popular y la Acción de Grupo, reguladas por la Ley 472 de 1998. Dentro de los parámetros establecidos por esta ley para cada acción, una de las diferencias es que:`,
+        options: [
+            "A. La acción popular debe ser iniciada por un abogado, la acción de grupo no.",
+            "B. La acción popular puede ser interpuesta únicamente por personas naturales o jurídicas que hubieren sufrido un perjuicio individual, la acción de grupo puede ser interpuesta por toda persona, natural o jurídica, las Organizaciones No Gubernamentales, organizaciones sociales, organismos de control y servidores públicos.",
+            "C. La acción popular puede promoverse durante el tiempo en que subsista la amenaza o peligro, la acción de grupo sólo puede interponerse dentro de los dos (2) años siguientes a la fecha en que se causó el daño o cesó la acción que causaba el daño.",
+            "D. La acción popular pretende que el daño colectivo ocasionado por un hecho común sea integralmente reparado, la acción de grupo está dirigida a proteger los derechos e intereses colectivos."
+        ],
+        answer: "C"
+    },
+    {
+        question: `20. Si las dos primeras proposiciones son ciertas, la tercera es: Todos los empleados de la función pública son servidores públicos. Francisco Gómez es contratista luego no es servidor público. Francisco Gómez no pertenece a la función pública.`,
+        options: [
+            "A. Verdadera.",
+            "B. Falsa.",
+            "C. Dudosa."
+        ],
+        answer: "B" // Corregido según la tabla de respuestas proporcionada (B - Falsa)
+    },
+    {
+        question: `21. Un servidor público se encuentra capacitando a una persona recién nombrada en su cargo. Empieza mostrando el propósito principal del Sistema de Información y Gestión del Empleo Público (SIGEP). Al exponer el propósito principal del sistema, durante la capacitación, el servidor público debe:`,
+        options: [
+            "A. Indicarle que esta herramienta permite consolidar los datos de carácter institucional relacionados con los servidores públicos.",
+            "B. Comunicarle que es una plataforma de tipo transaccional que facilita la gestión de las cuentas de las entidades de carácter público.",
+            "C. Señalarle que este aplicativo permite la integración de los procesos asociados a los diferentes proyectos de inversión pública."
+        ],
+        answer: "A"
+    },
+    {
+        question: `22. La eficacia directa de los derechos fundamentales tiende a justificar el activismo judicial, el cual aplica la Carta Fundamental, utiliza los principios constitucionales, los interpreta y llega a modificar en ocasiones las disposiciones superiores. La afirmación anterior es imprecisa, debido a que:`,
+        options: [
+            "A. La eficacia directa de los derechos fundamentales en materia constitucional depende del desarrollo legislativo más no de una labor judicial.",
+            "B. La interpretación judicial de los derechos fundamentales se debe atener a lo expresamente señalado por la labor legislativa.",
+            "C. El Legislador desarrolla los derechos fundamentales por medio de leyes estatutarias, que se deben referir también a instrumentos judiciales para hacerlos efectivos.",
+            "D. El Legislador desarrolla los derechos fundamentales por medio de leyes marco, que se deben referir también a instrumentos judiciales para hacerlos efectivos."
+        ],
+        answer: "C"
+    },
+    {
+        question: `23. Texto de referencia "La vida en sociedad también entraña de manera esencial el conflicto, que nace de la defensa de los intereses particulares, de los desacuerdos, de la competencia. El conflicto mal manejado puede llevar a los individuos a reaccionar violentamente a través de agresiones verbales o físicas. También a buscar dominar a los más débiles..." Según el texto, la frase "buscar dominar a los más débiles", en forma general tiene que ver con:`,
+        options: [
+            "A. Los maltratos familiares.",
+            "B. La violencia de género.",
+            "C. El manejo del conflicto.",
+            "D. Las relaciones de poder."
+        ],
+        answer: "D"
+    },
+    {
+        question: `24. La autonomía que la Constitución Política reconoce a los organismos de control tiene por objeto asegurar que su gestión se adelante en forma libre e independiente, sin interferencias ni intereses particulares ajenos al interés general y a las buenas prácticas de administración pública. Sin perjuicio del deber de colaboración armónica entre las ramas y organismos del poder público, el control fiscal debe:`,
+        options: [
+            "A. Garantizar su independencia técnica y su eficiencia económica, de forma que la fiscalización sobre el uso de los recursos públicos pueda hacerse sin reservas.",
+            "B. Prevenir, detectar, sancionar y erradicar los actos de corrupción en el ejercicio de las funciones públicas, lo cual constituye el objetivo último impuesto a las entidades encargadas de la auditoria financiera de los diferentes órganos del Estado.",
+            "C. Ejercerse en el contexto del principio de separación de funciones y, por ende, de plena diferenciación entre la función fiscalizadora y la actividad administrativa de las entidades objeto de control."
+        ],
+        answer: "C"
+    },
+    {
+        question: `25. El Artículo 88 de la Constitución Política de Colombia de 1991 consagra las acciones populares y de grupo para proteger derechos colectivos. Este Artículo fue regulado por la Ley 472 de 1998. Estas normas permiten concluir que una de las diferencias existentes entre las dos acciones es que:`,
+        options: [
+            "A. La acción popular busca una reparación del daño, y la acción de grupo busca prevenir el daño.",
+            "B. La acción popular busca prevenir el daño, y la acción de grupo busca una reparación del daño.",
+            "C. La acción de grupo debe ser presentada por, al menos, 20 personas; mientras que la acción popular exige que sean más de 5 personas.",
+            "D. La acción de grupo debe ser presentada por, al menos, 5 personas; mientras que la acción popular exige que sean más de 20 personas."
+        ],
+        answer: "B"
+    },
+    {
+        question: `26. Una entidad del Estado debe realizar el cambio de la naturaleza de los empleos de su planta global que son de libre nombramiento y remoción, debido a una decisión judicial. Con el fin de ejecutar este proceso, el jefe del área solicita al profesional a cargo adelantar los trámites pertinentes; por lo cual él debe:`,
+        options: [
+            "A. Elaborar el acto administrativo de destitución para la firma del jefe del área a la cual pertenece el empleo.",
+            "B. Proyectar la declaratoria de insubsistencia para la firma del nominador de la entidad.",
+            "C. Redactar la resolución de despido para la firma del director de la unidad de Talento Humano."
+        ],
+        answer: "B"
+    },
+    {
+        question: `27. El nominador del Ente de Control Fiscal solicita al responsable del Área de Nómina pagar una prima adicional para todos los empleados, conforme a lo negociado con el sindicato. Sin embargo, el empleado conoce que corresponde al Congreso dictar las normas generales para fijar el régimen salarial de los servidores públicos. Lo anterior supone que:`,
+        options: [
+            "A. El Ente de Control Fiscal tiene autonomía para crear una prima adicional para sus empleados.",
+            "B. Se debe conceder la prima, toda vez que fue producto de un pliego de solicitudes con los trabajadores de la entidad.",
+            "C. No se puede aplicar lo establecido en el pliego de solicitudes, ya que el tema prestacional solo puede ser objeto de negociación en el ámbito nacional.",
+            "D. El responsable del Área de Nómina debe proceder con la instrucción porque fue producto de un pliego de solicitudes con los trabajadores de la entidad."
+        ],
+        answer: "C"
+    },
+    {
+        question: `28. El artículo 230 de la Constitución Política establece que los jueces están sujetos al imperio de la ley en sus providencias. Frente a la sujeción de la actividad judicial al imperio de la ley es correcto afirmar que:`,
+        options: [
+            "A. Debe encargarse de la observación minuciosa y literal de un texto legal específico en consideración a que el ordenamiento jurídico es conjunto armónico de normas, que persigue la realización de los valores y objetivos consagrados en la Constitución.",
+            "B. No debe limitarse a la observación minuciosa y literal de un texto legal específico pues debe tomar en consideración el ordenamiento jurídico como conjunto integrado y armónico de normas, estructurado para la realización de los valores y objetivos consagrados en la Constitución.",
+            "C. Es su función centrarse en la observación pormenorizada de un texto legal específico ya que el ordenamiento jurídico es ante todo un conjunto integrado y armónico de normas cuyo fin atiende a la realización de los valores y objetivos constitucionales."
+        ],
+        answer: "B"
+    },
+    {
+        question: `29. Según lo dispuesto en la Ley 1150 de 2007, las entidades estatales deben estimar, tipificar y asignar los riesgos en los contratos estatales. Para dar una correcta aplicación a la norma, una entidad contratante debe definir la estimación, tipificación y asignación de los riesgos desde:`,
+        options: [
+            "A. Los estudios previos.",
+            "B. Los pliegos de condiciones.",
+            "C. La audiencia de riesgos."
+        ],
+        answer: "B" // Corregido según la tabla de respuestas proporcionada (B)
+    },
+    {
+        question: `30. De acuerdo con el artículo 1 de la C.P.N., Colombia es un estado social de derecho, organizado en forma de República unitaria, descentralizada, con autonomía de sus entidades territoriales, democrática. En el texto el error ortográfico se encuentra en la palabra:`,
+        options: [
+            "A. “estado” pues el “Estado” como un ente jurídico se escribe con mayúscula.",
+            "B. “C.P.N.” pues sería mejor aclarar: Constitución Política Nacional.",
+            "C. “unitaria”, pues la idea completa es República Unitaria” y se escribe en mayúscula."
+        ],
+        answer: "A"
+    },
+    {
+        question: `31. Una entidad pública requiere contratar la compraventa de bienes de papelería para su funcionamiento, y el presupuesto oficial supera el valor de la mínima cuantía, pero no el monto para la menor cuantía, determinado tal como lo establece el artículo 2, numeral 2, literal b de la Ley 1150 de 2007. En este caso, la mejor alternativa para celebrar el contrato es realizar un procedimiento de:`,
+        options: [
+            "A. Licitación pública.",
+            "B. Mínima Cuantía.",
+            "C. Selección abreviada."
+        ],
+        answer: "C"
+    },
+    {
+        question: `32. El principio de eficacia impone el logro de resultados mínimos en relación con las responsabilidades confiadas a los organismos estatales, con miras a la efectividad de los derechos colectivos e individuales. La palabra subrayada (impone) puede ser reemplazada por:`,
+        options: [
+            "A. Decide.",
+            "B. Espera.",
+            "C. Exige."
+        ],
+        answer: "C"
+    },
+    {
+        question: `33. El pensamiento no delinque y requiere una fuerza física (causa) y un daño o lesión al interés jurídico tutelado (efecto). La dañosidad en sí misma no estructura el delito, sino que además se requiere de una fuerza moral, conciencia y voluntad del hecho. De lo anterior se concluye que:`,
+        options: [
+            "A. La fuerza física es la causa y el daño al interés jurídico tutelado es el efecto.",
+            "B. La fuerza física es el efecto y el daño al interés jurídico tutelado es la causa.",
+            "C. La causa delinque y el efecto comporta la lesión.",
+            "D. La fuerza moral es causa y efecto."
+        ],
+        answer: "A"
+    },
+    {
+        question: `34. Un servidor público en cumplimiento de sus labores dentro de la entidad ha generado un incremento de su patrimonio. Este incremento se debe explicar, cuando sea requerido de forma inmediata y satisfactoria, ante el:`,
+        options: [
+            "A. Nominador, la Procuraduría General de la Nación o Personería.",
+            "B. Jefe inmediato, Recursos Humanos o Control Interno.",
+            "C. Nominador, la Contraloría General de la República o Defensoría.",
+            "D. Jefe inmediato, la Procuraduría General de la Nación o Defensoría."
+        ],
+        answer: "B" // Corregido según la tabla de respuestas proporcionada (B)
+    },
+    {
+        question: `35. Desde un punto de vista teleológico, la Constitución vincula directamente el control fiscal a los fines del Estado, en la medida que:`,
+        options: [
+            "A. Fiscaliza la administración y el manejo de los bienes y fondos públicos, en sus distintas etapas de recaudo o adquisición, conservación, enajenación, gasto, inversión y disposición.",
+            "B. Se orientan a garantizar la concreción efectiva de las tareas públicas mediante la asignación adecuada de los recursos públicos y la protección del patrimonio de la Nación.",
+            "C. Determina si las diferentes operaciones, transacciones y acciones jurídicas, financieras y materiales en las que se traduce la gestión fiscal se cumplieron de acuerdo con las normas prescritas para el efecto.",
+            "D. Determina la obtención de resultados oportunos y acordes con los objetivos y metas de la entidad; y si se ha hecho una correcta evaluación del impacto por el uso o deterioro de los recursos naturales y el medio ambiente asegurando su protección y conservación."
+        ],
+        answer: "B"
+    },
+    {
+        question: `36. La Subsecretaría de Acceso y Permanencia requiere desarrollar un procedimiento para divulgar por medio de la intranet, a usuarios internos competentes, las características que deben relacionarse en los informes de supervisión de contratos. El procedimiento más acertado para dicho efecto sería:`,
+        options: [
+            "A. Información de la Subsecretaría – Publicación Oficina de Comunicaciones - Usuarios del área informados.",
+            "B. Divulgación de la Oficina de Comunicaciones – Usuarios del área informados.",
+            "C. Información de Contratación - Oficina de Comunicaciones – Usuarios del área informados."
+        ],
+        answer: "A"
+    },
+    {
+        question: `37. La entidad ha recibido un derecho de petición por parte de una ciudadana, en el que solicita información sobre aspectos de ejecución en el último semestre. El funcionario encargado debe redactar una respuesta clara y directa. En lo que respecta a la redacción para dar una explicación directa, al funcionario encargado le corresponde:`,
+        options: [
+            "A. Usar la fórmula conocida como el orden lógico de la oración: sujeto + verbo + complemento.",
+            "B. Utilizar la forma tradicional aplicada como voz pasiva: sujeto + sustantivo + acción presente.",
+            "C. Emplear el formato lingüístico reconocido como contextual: pronombre + adjetivo + predicado."
+        ],
+        answer: "A"
+    },
+    {
+        question: `38. En una conferencia sobre función pública, se indica que los servidores deben escuchar con respeto a todo ciudadano, independientemente de su condición, y brindar atención amable y eficiente. Lo anterior permite inferir que:`,
+        options: [
+            "A. Se debe dar respuesta a todos los ciudadanos, sin utilizar apelativo alguno.",
+            "B. A los ciudadanos se les debe escuchar y brindar diferentes alternativas.",
+            "C. Los funcionarios siempre deben aplicar los protocolos de los protocolos de servicio adoptados por la entidad." // Ajuste en texto de opción
+        ],
+        answer: "B" // Corregido según la tabla de respuestas proporcionada (B)
+    },
+    {
+        question: `39. En junio de 2024 queda ejecutoriada una sentencia de segunda instancia que revoca el fallo del A Quo y condena a una entidad estatal a pagar una suma por responsabilidad extracontractual. Conforme a lo anterior será correcto afirmar que:`,
+        options: [
+            "A. Dicha condena no supone un gasto por no ser de naturaleza contractual.",
+            "B. Se debe efectuar la apropiación presupuestal para el pago de dicha sentencia.",
+            "C. Se tiene que pagar dicha sentencia en el año 2024 con el presupuesto de gasto.",
+            "D. La apropiación presupuestal para el pago de la sentencia se hará en el año 2025."
+        ],
+        answer: "B"
+    },
+    {
+        question: `40. La oficina de Contratos ha desarrollado un documento extenso sobre los detalles para realizar contratos con particulares. Usted debe resumirlo siguiendo el Decreto 1510 de 2013. La estructura adecuada según el decreto es:`,
+        options: [
+            "A. Justificación - Planeación - Ejecución - Evaluación.",
+            "B. Planeación - Selección - Contratación - Ejecución.",
+            "C. Justificación - Planeación - Contratación - Liquidación."
+        ],
+        answer: "B"
+    },
+    {
+        question: `41. Una empresa de servicios públicos domiciliarios se dedica a la preservación y distribución del agua. Se ha reconocido que la imagen de la empresa ante la opinión pública ha sido afectada, entre otros problemas, por los retrasos en una obra de tratamiento de aguas que se está ejecutando desde hace tres años. Con el fin de dimensionar la afectación en la imagen de la empresa, el Área de Mercadeo ha destinado recursos para adelantar un estudio de mercado. Un funcionario ha sido asignado para liderar la realización de este contrato, el cual permitirá la definición de los programas de comunicación y publicidad de la entidad para mejorar su imagen. Si el ordenador del gasto debe fijar el valor del servicio para la contratación como parte del proceso contractual, entonces debe:`,
+        options: [
+            "A. Efectuar un análisis para conocer el sector del objeto del contrato.",
+            "B. Celebrar la audiencia de observaciones donde se establece el monto mínimo.",
+            "C. Consultar lo propuesto en el plan anual de adquisiciones de la entidad."
+        ],
+        answer: "C" // Corregido según la tabla de respuestas proporcionada (C)
+    },
+    {
+        question: `42. Usted ha sido asignado al Comité Interno de Archivo de la entidad en la cual trabaja, y en la que actualmente se está adelantando un proceso de organización documental que busca ajustarse a la normatividad y los procedimientos sobre el tema que ha definido el Archivo General de la Nación. Este proceso se encuentra muy atrasado en la entidad y es importante adelantar las actividades pertinentes. Con el objetivo de realizar correctamente la agrupación de las series documentales como miembro del Comité Interno de Archivo, usted recomienda:`,
+        options: [
+            "A. Ordenar teniendo en cuenta la dependencia de la cual provienen los documentos.",
+            "B. Clasificar a partir de las funciones de las dependencias que crean los documentos.",
+            "C. Organizar los documentos con base en los asuntos definidos por las dependencias."
+        ],
+        answer: "B"
+    },
+    {
+        question: `43. Al área jurídica de una entidad estatal llega la notificación de una acción de tutela en la que el accionante invoca, como sustento, la violación a los principios y valores contenidos en el preámbulo de la Constitución. Para efectos de dar una respuesta adecuada, y aplicando lo expuesto por la Corte Constitucional sobre el valor jurídico del preámbulo, la entidad debe:`,
+        options: [
+            "A. Solicitar el rechazo de la tutela porque el preámbulo carece de todo valor jurídico, y NO es posible sustentar una acción de tutela en su contenido.",
+            "B. Solicitar el rechazo de la tutela porque el preámbulo sólo sirve para interpretar la Constitución, pero NO puede utilizarse para sustentar una acción de tutela.",
+            "C. Estudiar el caso y dar una respuesta de fondo, porque el preámbulo tiene pleno valor jurídico y puede utilizarse válidamente como sustento de una acción de tutela."
+        ],
+        answer: "C"
+    },
+    {
+        question: `44. A solicitud de su jefe, usted transcribe el borrador de una circular externa que emitirá la entidad, encontrando el siguiente párrafo: “... Teniendo en cuenta de que el próximo mes de Noviembre del presente año tendremos elecciones de nuevos alcaldes y concejales, conviene advertir a las autoridades que culminan su periodo el 31 de diciembre del año en curso, sobre el cumplimiento de la Ley 594 de 2000, con ocasión al cambio de administraciones territoriales que se pueden presentar...” Al hacer la tarea, advierte que la redacción del documento debe ser en tercera persona, por lo que para corregirlo usted modifica la palabra:`,
+        options: [
+            "A. “tendremos” por “se tendrá”.",
+            "B. “conviene” por “nos conviene”.",
+            "C. “pueden” por “podremos”."
+        ],
+        answer: "A"
+    },
+    {
+        question: `45. Al funcionario público Juan se le notifica un acto administrativo por su nominador que dice expresamente: “Declárese insubsistente al funcionario Juan por razones del servicio”. El expediente administrativo muestra que la hoja de vida del funcionario no ha tenido anotaciones negativas. El acto administrativo presenta un vicio de inconstitucionalidad que se sustenta en:`,
+        options: [
+            "A. El desconocimiento al principio del juez o fallador natural, pues el ente que toma la decisión no es competente para ello.",
+            "B. La violación al debido proceso, pues se toma una decisión administrativa que no tiene una debida motivación a partir de los antecedentes de este servidor público.",
+            "C. La toma de una decisión administrativa que falta al debido proceso pues al no valorar los antecedentes del notificado, incurre en una violación a la debida motivación."
+        ],
+        answer: "B"
+    },
+    {
+        question: `46. La entidad ha recibido un derecho de petición por parte de una ciudadana, en el que solicita información sobre aspectos de ejecución en el último semestre. El funcionario encargado debe redactar una respuesta clara y directa. En lo que respecta a la redacción para dar una explicación directa, al funcionario encargado le corresponde:`,
+        options: [
+            "A. Usar la fórmula conocida como el orden lógico de la oración: sujeto + verbo + complemento.",
+            "B. Utilizar la forma tradicional aplicada como voz pasiva: sujeto + sustantivo + acción presente.",
+            "C. Emplear el formato lingüístico reconocido como contextual: pronombre + adjetivo + predicado."
+        ],
+        answer: "A"
+    },
+    {
+        question: `47. La entidad donde usted trabaja está consolidando la información de un grupo de 350 funcionarios con el fin de determinar cuántos de ellos se encuentran afiliados al Régimen de Prima Media (RPM), al Régimen de Ahorro Individual Solidario (RAIS), y quiénes a la vez se encuentran o no en condición de prepensión. Una vez hecha la revisión del documento consolidado se pudo concluir que: El 80% del grupo de funcionarios se encuentran afiliados al RPM. El 10% de los afiliados al RAIS son prepensionados. El 4% del total de funcionarios del grupo son prepensionados. ¿Cuál de las siguientes tablas representa correctamente la información obtenida de ese grupo?`,
+        options: [
+            "A. \n Estatus Régimen | No prepensionado | Prepensionado \n --- | --- | --- \n RPM | 140 | 140 \n RAIS | 70 | 7",
+            "B. \n Estatus Régimen | No prepensionado | Prepensionado \n --- | --- | --- \n RPM | 200 | 63 \n RAIS | 80 | 7",
+            "C. \n Estatus Régimen | No prepensionado | Prepensionado \n --- | --- | --- \n RPM | 270 | 7 \n RAIS | 59 | 14"
+        ],
+        answer: "D" // Según la tabla de respuestas proporcionada, la respuesta es D. Sin embargo, solo hay opciones A, B, C en el texto. Asumo que la opción D debe estar en la tabla pero no en el listado de opciones, o hay un error en la numeración. Dejaré 'D' según la tabla, pero revisa si falta una opción D en tu documento original.
+    },
+    {
+        question: `48. Un usuario llega a la entidad y se acerca al punto de información para aclarar una serie de dudas que tiene frente a un proceso en el trámite de una documentación. Frente a lo anterior decido:`,
+        options: [
+            "A. Emitir una respuesta oportuna y clara a partir de la información que tiene de su dependencia.",
+            "B. Dirigir al usuario a la dependencia a la que corresponden sus dudas, para que sean resueltas.",
+            "C. Indicar amablemente que no cuento con la información que solicita."
+        ],
+        answer: "A"
+    },
+    {
+        question: `49. A su dependencia ingresó una nueva funcionaria: reservada e indiferente. No habla ni se relaciona con nadie. Después de dos meses de su ingreso, aprovechando el aniversario de la entidad, el jefe organiza varias actividades grupales. Sin embargo, durante la reunión de organización de las tareas, se presenta un conflicto entre un compañero y la nueva funcionaria. Ante esa situación, usted:`,
+        options: [
+            "A. Simplemente se convierte en un espectador del tema y no se involucra para no tener inconvenientes con ninguno de los dos.",
+            "B. Se acerca a los dos y se comunica informándoles la importancia de cada uno para el logro de los resultados del equipo.",
+            "C. Se retira de la reunión y le reporta a su superior lo acontecido para que él se encargue del tema.",
+            "D. Se comunica directamente con la funcionaria nueva, pues considera que mejorando su sociabilidad se supera el inconveniente."
+        ],
+        answer: "B"
+    },
+    {
+        question: `50. Ante la gran cantidad de demandas y procesos disciplinarios contra la institución y sus trabajadores, una entidad pública se ve avocada a solicitar el apoyo de la Procuraduría General de la Nación con el fin de capacitar a los funcionarios en materia disciplinaria. Un empleado manifiesta que presentó una queja con la cual se inició un proceso disciplinario en el que se le negó el derecho a controvertir el fallo absolutorio. Al dirigirse a este empleado particular, el profesional que adelanta la capacitación debe:`,
+        options: [
+            "A. Precisar que debe ser abogado para poder impugnar la decisión.",
+            "B. Aducir que el denunciante carece de la calidad de sujeto procesal.",
+            "C. Afirmar que es improcedente rechazar esta clase de derecho al quejoso."
+        ],
+        answer: "C"
+    },
+    {
+        question: `51. Un usuario llega a la entidad y se acerca al punto de información para aclarar una serie de dudas que tiene frente a un proceso en el trámite de una documentación. Frente a lo anterior decido:`,
+        options: [
+            "A. Emitir una respuesta oportuna y clara a partir de la información que tiene de su dependencia.",
+            "B. Dirigir al usuario a la dependencia a la que corresponden sus dudas, para que sean resueltas.",
+            "C. Indicar amablemente que no cuento con la información que solicita."
+        ],
+        answer: "B" // Corregido según la tabla de respuestas proporcionada (B). Nota: Esta pregunta (51) parece idéntica a la 48, pero la respuesta en la tabla es diferente (A vs B). Usaré la de la tabla para cada número.
+    },
+    {
+        question: `52. A su dependencia ingresó una nueva funcionaria: reservada e indiferente. No habla ni se relaciona con nadie. Después de dos meses de su ingreso, aprovechando el aniversario de la entidad, el jefe organiza varias actividades grupales. Sin embargo, durante la reunión de organización de las tareas, se presenta un conflicto entre un compañero y la nueva funcionaria. Ante esa situación, usted:`,
+        options: [
+            "A. Simplemente se convierte en un espectador del tema y no se involucra para no tener inconvenientes con ninguno de los dos.",
+            "B. Se acerca a los dos y se comunica informándoles la importancia de cada uno para el logro de los resultados del equipo.",
+            "C. Se retira de la reunión y le reporta a su superior lo acontecido para que él se encargue del tema.",
+            "D. Se comunica directamente con la funcionaria nueva, pues considera que mejorando su sociabilidad se supera el inconveniente."
+        ],
+        answer: "B" // Corregido según la tabla de respuestas proporcionada (B). Nota: Esta pregunta (52) parece idéntica a la 49, y la respuesta en la tabla es la misma (B).
+    },
+    {
+        question: `53. Desde hace un mes, dos miembros de su equipo de trabajo tienen conflictos personales que afectan el cumplimiento de sus funciones. Una de ellas indica que la otra no la apoya, recargándole el trabajo. Como líder del equipo, para atender esta situación se asegura de:`,
+        options: [
+            "A. Atender personalmente escuchando con respeto y cortesía a las funcionarias, para mitigar las situaciones de tensión que existe entre ellas.",
+            "B. Organizar reuniones con su equipo de trabajo implementando técnicas de negociación dinámicas.",
+            "C. Implementar acciones para que las funcionarias comprendan que trabajan en función de los mismos objetivos y planes y los apropien.",
+            "D. Direccionar a Gestión Humana, solicitando a esta dependencia tome las medidas pertinentes."
+        ],
+        answer: "C"
+    },
+    {
+        question: `54. Durante los últimos seis (6) meses he estado a cargo de la ejecución de un proyecto con el cual se busca mejorar las herramientas tecnológicas de la entidad. Los directivos solicitan una reunión para conocer los avances. Durante la implementación, encuentro que se ha perdido información vital para la entrega de los avances. Frente a esta situación, decido:`,
+        options: [
+            "A. Analizar con el equipo de trabajo las razones que generaron el problema.",
+            "B. Explicar que la situación presentada interfirió en la obtención de los resultados.",
+            "C. Mencionar en detalle las características de la información extraviada."
+        ],
+        answer: "A"
+    },
+    {
+        question: `55. La entidad donde trabajo está realizando una reestructuración, razón por la cual me han trasladado a otra sede. Aunque es el mismo nivel de empleo, algunas funciones han cambiado y el equipo asignado tiene más de diez (10) años de servicio. Mi jefe me indica que debo ponerme al día con los asuntos de mi nueva posición rápidamente. Al sentirme deshabituado con algunas funciones, he decidido:`,
+        options: [
+            "A. Dedicar tiempo extra a mi jornada laboral para finalizar las tareas pendientes.",
+            "B. Revisar mis conocimientos junto con la experiencia de mi equipo de trabajo sobre este tema.",
+            "C. Solicitar la asignación de un asistente para que me apoye en el buen funcionamiento de mi cargo."
+        ],
+        answer: "B"
+    },
+    {
+        question: `56. La secretaria de gerencia debe programar una reunión extraordinaria con directivos de la empresa, algunos de los cuales son distantes y poco flexibles con sus agendas. Se espera que la secretaria:`,
+        options: [
+            "A. Le informe amablemente a los directivos el horario de la reunión y que es necesario que ellos estén ahí, pues se van a tratar temas muy delicados.",
+            "B. Llegue a un consenso en la organización del horario de cada uno de los directivos con el fin de originar un espacio común para que se dé la reunión.",
+            "C. Busque el espacio oportuno con cada uno de los directivos, para explicar de forma respetuosa lo sucedido y así poder generar el cumplimiento de su tarea."
+        ],
+        answer: "C"
+    },
+    {
+        question: `57. En una entidad, en los últimos seis (6) meses se han implementado diversas estrategias para mejorar la atención al ciudadano, pero el porcentaje de quejas no ha disminuido. Como encargado de evaluar la situación, considero importante incluir:`,
+        options: [
+            "A. El tiempo de implementación de las estrategias y los responsables.",
+            "B. El tipo de quejas presentadas y las estrategias de mejoramiento utilizadas.",
+            "C. La cantidad de quejas y los recursos con los que cuenta la entidad para dar respuesta."
+        ],
+        answer: "B"
+    },
+    {
+        question: `58. Usted ha ingresado hace poco como auxiliar administrativo en la entidad. Debido al alto volumen de trabajo, su capacitación fue breve y desea conocer más a fondo las actividades misionales. Para estar actualizado sobre las actividades misionales, usted:`,
+        options: [
+            "A. Consulta los datos que necesita directamente con las personas que trabajan en las áreas misionales.",
+            "B. Consulta la información aportada durante la capacitación, así como en el sitio web de la entidad.",
+            "C. Investiga en los repositorios y documentación institucional sobre las actividades misionales de la entidad."
+        ],
+        answer: "C"
+    },
+    {
+        question: `59. Desde hace tres (3) semanas, su jefe le ha encargado funciones de archivo y organización de la información que no corresponden a su cargo. Aunque las realiza, considera injusto el retraso que esto genera en sus tareas habituales. Para solucionar esta situación, decide:`,
+        options: [
+            "A. Solicitar que otros compañeros también realicen las actividades para que todos estén en igualdad de condiciones.",
+            "B. Informar que las tareas asignadas son muchas y que está dejando de hacer otras más importantes.",
+            "C. Proponer que se amplíe el plazo o reasignen por un tiempo algunas actividades para cumplir sin inconvenientes."
+        ],
+        answer: "C"
+    },
+    {
+        question: `60. Una entidad pública realiza modificaciones internas, extinguiendo una dependencia y creando una nueva. Usted es designado para recibir a dos profesionales que desempeñaban funciones en la dependencia desaparecida. La mejor manera de acogerlos es:`,
+        options: [
+            "A. Informarse de las funciones que cumplían y pedirles informes.",
+            "B. Indagar sobre las capacidades de los profesionales para que empiecen a realizar sus funciones desde la reestructuración.",
+            "C. Reunirse con ellos para que le expliquen sus actividades en la anterior dependencia y cómo las implementarán ahora."
+        ],
+        answer: "C"
+    },
+    {
+        question: `61. Usted debe elaborar un documento que resuma las actividades del último mes para que la nueva coordinadora conozca las funciones del equipo. Al buscar documentación en la oficina de la coordinación, encuentra una lista de contratistas a quienes NO se les renovará el contrato el próximo mes, incluyendo a un compañero cercano. Ante esta situación, usted:`,
+        options: [
+            "A. Decide esperar a que la coordinadora le comunique la novedad a su compañero.",
+            "B. Comunica lo observado de inmediato a su compañero pidiéndole su discreción.",
+            "C. Sugiere a su compañero que vaya buscando otro empleo sin explicarle el motivo."
+        ],
+        answer: "A"
+    },
+    {
+        question: `62. Un usuario ha comunicado su inconformidad debido a que sigue sin recibir respuesta del derecho de petición radicado hace 30 días. En este, solicitaba información que debería estar disponible en la página web de la entidad, pero afirma que NO es visible por dificultades técnicas. Con el fin de ofrecerle la información al usuario acerca del derecho de petición que radicó días atrás, usted:`,
+        options: [
+            "A. Le brinda atención buscando el radicado de su solicitud y le informa sobre la respuesta que está exigiendo.",
+            "B. Le indaga sobre el requerimiento y le recomienda que tenga en cuenta los tiempos de respuesta oportuna.",
+            "C. Le comunica que el área responde por otros procesos y le manifiesta su intención de indagar por su trámite."
+        ],
+        answer: "A"
+    },
+    {
+        question: `63. Como parte de sus nuevas responsabilidades, su jefe le ha solicitado liderar y dar continuidad a un proyecto interrumpido, para lo cual debe implementar una herramienta de última tecnología. Con el fin de cumplir con este requerimiento, ha decidido:`,
+        options: [
+            "A. Solicitar una capacitación para aprender sobre su manejo.",
+            "B. Conocer las razones que sustentan la necesidad de su uso.",
+            "C. Explorar con el equipo las sugerencias que tienen sobre su desarrollo."
+        ],
+        answer: "A"
+    },
+    {
+        question: `64. Usted sabe que un compañero en una entidad pública oculta información durante el ejercicio permanente de Rendición de Cuentas. Frente a esto usted:`,
+        options: [
+            "A. Decide guardar silencio para no meterse en problemas.",
+            "B. Da informe a las autoridades competentes puesto que está violando el principio de transparencia.",
+            "C. Habla con su compañero instándolo a modificar su conducta."
+        ],
+        answer: "B"
+    },
+    {
+        question: `65. Su jefe le solicita hacer un plan de mejoramiento basado en resultados del Sistema de Gestión de Calidad, pero usted desconoce el informe y se cruza con una actividad programada. Para desarrollar la tarea:`,
+        options: [
+            "A. Indaga para ampliar la información requerida.",
+            "B. Establece la fecha de entrega del informe.",
+            "C. Prioriza la urgencia de las acciones.",
+            "D. Plantea las acciones de mejora solicitadas."
+        ],
+        answer: "A"
+    },
+    {
+        question: `66. Dentro de las asesorías que usted brinda a una dependencia, ha encontrado que el líder del proyecto no cumple con normas y procedimientos establecidos. Ante la situación usted:`,
+        options: [
+            "A. No dice nada ya que desde el principio dejó claras las consecuencias.",
+            "B. Habla con el líder del proyecto y le explica la importancia de cumplir con los procedimientos.",
+            "C. Solicita que cambien al líder del proyecto por posibles implicaciones legales."
+        ],
+        answer: "B"
+    },
+    {
+        question: `67. Sus nuevas funciones implican trabajo interdisciplinario con áreas de las que posee poco conocimiento. Para desarrollar un buen trabajo, ha decidido:`,
+        options: [
+            "A. Obtener información relevante sobre ellas para entender cómo ajustar el trabajo de su área.",
+            "B. Establecer vínculos entre profesionales de diferentes disciplinas para validar puntos de vista.",
+            "C. Comprender la cultura organizacional para generar propuestas acordes al entorno laboral."
+        ],
+        answer: "B"
+    },
+    {
+        question: `68. Usted es el encargado de logística de una entidad y debe realizar la entrega de unos estantes para una feria empresarial. El funcionario encargado del acarreo no ha podido llegar a la hora determinada por demoras en otra entrega. En este caso es pertinente que usted:`,
+        options: [
+            "A. Ubique al conductor para establecer nuevos tiempos de entrega y coordinar con el cliente.",
+            "B. Organice con otros conductores el proceso de entrega para cumplir con lo establecido.",
+            "C. Realice los procesos de sanción establecidos para la entidad en caso de incumplimiento."
+        ],
+        answer: "B"
+    },
+    {
+        question: `69. Durante una reunión con la Junta Directiva, se evidencia que su proyecto incumple el cronograma por dificultades en recursos, disponibilidad del personal y demanda de tiempo extra. Para informar a los funcionarios sobre este encuentro, decide:`,
+        options: [
+            "A. Enviar un correo indicando el nuevo plan de trabajo para cumplir las metas.",
+            "B. Citar mediante un oficio a una reunión que permita identificar posibles soluciones.",
+            "C. Compartir un comunicado recordando las consecuencias de mantener el retraso."
+        ],
+        answer: "B"
+    },
+    {
+        question: `70. Uno de sus compañeros le reporta a última hora una dificultad que puede ocasionar un problema de salubridad comunitaria, generándole una sobrecarga laboral e interfiriendo con sus vacaciones. Su jefe le exige dar solución inmediata. Ante esto, usted ha decidido:`,
+        options: [
+            "A. Diseñar un comunicado a las entidades aclarando la situación.",
+            "B. Solicitar a su compañero que proyecte el comunicado debido a su responsabilidad en la demora.",
+            "C. Realizar una propuesta de comunicado para que su compañero realice observaciones."
+        ],
+        answer: "C"
+    },
+    {
+        question: `71. Debido a la alta probabilidad de generación de enfermedades, su jefe le ha solicitado desplazarse a las sedes de diferentes entidades y municipios del departamento para evaluar una situación de salubridad. Ante esta situación, decido:`,
+        options: [
+            "A. Presentar un cronograma de reuniones antes de viajar para la elaboración de un plan de contingencia.",
+            "B. Proponer que un compañero viaje en mi reemplazo porque estoy a cargo de un proyecto de mayor impacto.",
+            "C. Determinar fechas de viaje que no interfieran con su periodo de vacaciones previamente aprobado."
+        ],
+        answer: "A"
+    },
+    {
+        question: `72. Las directivas de la entidad han iniciado una campaña para evaluar procesos y metodologías, buscando mejorar los servicios. La nueva metodología de gestión de indicadores carece de validación definitiva por falta de evidencia. Para optimizar los resultados de esta iniciativa, decido:`,
+        options: [
+            "A. Realizar una evaluación que permita identificar las posibles causas de esta situación.",
+            "B. Retomar una parte de la metodología anterior para garantizar el alcance de las metas.",
+            "C. Revisar las directrices que los superiores brinden al respecto para ajustarlas en su trabajo."
+        ],
+        answer: "A"
+    },
+    {
+        question: `73. Al finalizar una reunión con la gerencia, se informa que el presupuesto del proyecto se redujo y debe finalizarse en el menor tiempo posible, priorizando objetivos de mayor impacto. Ante este requerimiento, decido:`,
+        options: [
+            "A. Disponer de los recursos para desarrollar la mayor cantidad de actividades posibles.",
+            "B. Centrar las actividades del equipo en las metas próximas a lograrse.",
+            "C. Ordenar los objetivos del proyecto para focalizar las actividades en los más relevantes."
+        ],
+        answer: "C"
+    },
+    {
+        question: `74. En su lugar de trabajo se están presentando rumores y comentarios por los errores de un compañero, lo que ha generado reprocesos y alterado el ambiente laboral. Ante esta situación:`,
+        options: [
+            "A. Al escuchar los comentarios, decide hablar sobre la experiencia que ha tenido con el compañero.",
+            "B. Les da poca importancia a los comentarios, dedicándose únicamente a trabajar.",
+            "C. Escucha los comentarios y luego se los comunica a su compañero para entenderlo.",
+            "D. Habla directamente con la persona implicada para conocer su versión y buscar soluciones."
+        ],
+        answer: "D"
+    },
+    {
+        question: `75. Usted ha sido designado para orientar un evento institucional que divulgará las actividades de la CNSC respecto a la evaluación del mérito. Los colaboradores asignados son recién vinculados. Para organizar el evento, usted prefiere:`,
+        options: [
+            "A. Realizar una actividad para conocer a los nuevos colaboradores y asignarles tareas acordes a sus capacidades.",
+            "B. Distribuir las mismas labores entre todos para una división igualitaria del trabajo.",
+            "C. Organizar a los colaboradores según sus intereses para mantenerlos motivados."
+        ],
+        answer: "A"
+    },
+    {
+        question: `76. Le delegan redistribuir actividades grupales para mejorar la percepción de calidad del servicio, pero algunos compañeros prefieren trabajar de manera independiente. Aunque acepta el reto, decide:`,
+        options: [
+            "A. Persuadir a un compañero de confianza para que realice la labor por usted.",
+            "B. Asignar actividades según los gustos personales de cada compañero.",
+            "C. Solicitar ideas y propuestas a los compañeros para concertar las actividades."
+        ],
+        answer: "C"
+    },
+    {
+        question: `77. Uno de los retos en su nuevo puesto es compartir adecuadamente con un equipo multigeneracional (miembros con más de 10 años de servicio y nuevos). Para ello, cree necesario:`,
+        options: [
+            "A. Integrar las experiencias de unos con la innovación de otros.",
+            "B. Plantear objetivos de trabajo según las habilidades individuales.",
+            "C. Mantener un diálogo claro y directo con todo el equipo."
+        ],
+        answer: "A"
+    },
+    {
+        question: `78. En su área, los funcionarios nuevos tardan mucho en adaptarse a los procesos y cometen errores por desconocimiento de protocolos, afectando las metas. Ante los inconvenientes con el sistema de información, usted opta por:`,
+        options: [
+            "A. Entregar manuales de uso y esperar a que surjan dudas en una reunión.",
+            "B. Compartir una presentación del proceso y sugerir que estudien los aspectos complejos.",
+            "C. Integrarse con los nuevos compañeros para comprender cómo hacer más eficiente su labor."
+        ],
+        answer: "C"
+    },
+    {
+        question: `79. En su dependencia se organiza una celebración importante y se solicita la colaboración de todos los funcionarios, distribuidos en grupos. Para realizar las actividades asignadas a su grupo, usted:`,
+        options: [
+            "A. Acuerda con sus compañeros las actividades necesarias y distribuye responsabilidades por consenso.",
+            "B. Informa las actividades que realizará dentro de su jornada habitual y deja que los demás asignen el resto.",
+            "C. Consulta con sus compañeros más cercanos cómo organizar las actividades según sus sugerencias."
+        ],
+        answer: "A"
+    },
+    {
+        question: `80. Tras una reunión con la Junta Directiva, los directivos expresan preocupación por el retraso en su proyecto. Para tranquilizarlos, usted manifiesta que:`,
+        options: [
+            "A. Confía en las habilidades del equipo para alcanzar los tiempos esperados.",
+            "B. Cree que puede esforzarse más para ponerse al día.",
+            "C. Considera que contar con apoyo extra ayudará a recuperar el atraso."
+        ],
+        answer: "C"
+    },
+    {
+        question: `81. La entidad donde trabajo está realizando una reestructuración, razón por la cual me han trasladado a otra sede. A pesar de que es el mismo nivel de empleo, algunas de mis funciones y responsabilidades han cambiado y el equipo de trabajo que me ha sido asignado está conformado por servidores que tienen más de diez (10) años de servicio en la entidad. Mis nuevas funciones implican el trabajo interdisciplinario con otras áreas de las que poseo poco conocimiento. Para desarrollar un buen trabajo, he decidido:`,
+        options: [
+            "A. Obtener información relevante sobre ellas para entender cómo ajustar el trabajo de mi área.",
+            "B. Establecer vínculos entre los profesionales de las diferentes disciplinas para validar los puntos de vista.",
+            "C. Comprender la cultura organizacional para generar propuestas acordes al entorno laboral."
+        ],
+        answer: "B"
+    },
+    {
+        question: `82. Usted ha sido designado para orientar un evento institucional que divulgará las actividades de la CNSC respecto a la evaluación del mérito. Los colaboradores asignados son recién vinculados. Para organizar el evento, usted prefiere:`,
+        options: [
+            "A. Realizar una actividad para conocer a los nuevos colaboradores y asignarles tareas acordes a sus capacidades.",
+            "B. Distribuir las mismas labores entre todos para una división igualitaria del trabajo.",
+            "C. Organizar a los colaboradores según sus intereses para mantenerlos motivados."
+        ],
+        answer: "A"
+    },
+    {
+        question: `83. En su lugar de trabajo se están presentando rumores y comentarios por los errores de un compañero, lo que ha generado reprocesos y alterado el ambiente laboral. Ante esta situación:`,
+        options: [
+            "A. Al escuchar los comentarios, decide hablar sobre la experiencia que ha tenido con el compañero.",
+            "B. Les da poca importancia a los comentarios, dedicándose únicamente a trabajar.",
+            "C. Escucha los comentarios y luego se los comunica a su compañero para entenderlo.",
+            "D. Habla directamente con la persona implicada para conocer su versión y buscar soluciones."
+        ],
+        answer: "D"
+    },
+    {
+        question: `84. Tras una reunión con la Junta Directiva, los directivos expresan preocupación por el retraso en su proyecto. Para tranquilizarlos, usted manifiesta que:`,
+        options: [
+            "A. Confía en las habilidades del equipo para alcanzar los tiempos esperados.",
+            "B. Cree que puede esforzarse más para ponerse al día.",
+            "C. Considera que contar con apoyo extra ayudará a recuperar el atraso."
+        ],
+        answer: "C"
+    }
 ];
 
 /**
