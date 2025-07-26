@@ -32,26 +32,27 @@
 
     <div class="quiz-wrapper" style="display: none;">
         <aside class="sidebar" id="question-nav" aria-label="Navegación de preguntas">
-            </aside>
+    </aside>
+    <div class="timers-container" aria-live="polite">
+        <div id="question-timer" class="timer">
+            Pregunta: <span class="time" aria-label="Tiempo restante para la pregunta">--:--</span>
+        </div>
+        <div id="total-timer" class="timer">
+            Total: <span class="time" aria-label="Tiempo restante total">--:--</span>
+        </div>
+        <button id="btn-pause-resume" type="button" class="btn-icon" aria-label="Pausar cuestionario">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> <!-- Icono de Pausa -->
+        </button>
+    </div>
 
-        <section class="main">
-            <header id="quiz-header">
-                <h1>Cuestionario Interactivo</h1>
-
-                <div class="timers-container" aria-live="polite">
-                    <div id="question-timer" class="timer">
-                        Pregunta: <span class="time" aria-label="Tiempo restante para la pregunta">--:--</span>
-                    </div>
-                    <div id="total-timer" class="timer">
-                        Total: <span class="time" aria-label="Tiempo restante total">--:--</span>
-                    </div>
-                </div>
-
-                <div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="progress-text-label">
-                  <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
-                </div>
-                <div id="progress-text" aria-live="polite"><span id="progress-text-label">Progreso:</span> 0 / 0 (0%)</div>
-            </header>
+    <section class="main">
+        <header id="quiz-header">
+            <h1>Cuestionario Interactivo</h1>
+            <div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="progress-text-label">
+            <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
+            </div>
+            <div id="progress-text" aria-live="polite"><span id="progress-text-label">Progreso:</span> 0 / 0 (0%)</div>
+        </header>
 
             <main class="quiz" id="quiz-container" aria-live="polite">
                 </main>
@@ -84,7 +85,17 @@
                  </div>
             </section>
 
-        </section> </div> <div id="custom-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-message" aria-modal="true">
+        </section> </div> 
+
+    <div id="pause-overlay" class="overlay-container" style="display: none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <div class="overlay-content">
+            <h2 id="pause-title">Cuestionario Pausado</h2>
+            <p>Tómate un respiro. Tu progreso está guardado.</p>
+            <button id="btn-resume-from-overlay" type="button">Reanudar</button>
+        </div>
+    </div>
+
+    <div id="custom-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-message" aria-modal="true">
         <div class="modal-content" role="document">
             <h2 id="modal-title" class="modal-title-text">Confirmación</h2>
             <p id="modal-message">¿Estás seguro?</p>
