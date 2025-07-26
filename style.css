@@ -55,7 +55,7 @@ body {
     color: var(--text-primary); /* Color de texto principal */
     display: flex; /* Usa flexbox para centrar el contenido vertical y horizontalmente */
     min-height: 100vh; /* Asegura que el body ocupe al menos el 100% de la altura de la ventana */
-    align-items: center; /* Centra los hijos verticalmente en un contenedor flex */
+    align-items: flex-start; /* Centra los hijos verticalmente en un contenedor flex */
     justify-content: center; /* Centra los hijos horizontalmente en un contenedor flex */
     background: linear-gradient(135deg, var(--body-bg-start), var(--body-bg-end)); /* Aplica un degradado de fondo */
     padding: 1rem; /* Padding alrededor del contenido principal */
@@ -256,45 +256,80 @@ body {
 /* --- Contenedor Principal del Quiz --- */
 /* Estilos para el contenedor que envuelve todo el quiz */
 .quiz-wrapper {
+    background: var(--card-bg); /* Fondo blanco */
+    border-radius: var(--radius); /* Bordes redondeados */
+    box-shadow: var(--shadow); /* Sombra suave */
+    padding: 0; /* Padding se maneja en hijos (sidebar/main) */
     display: none; /* Oculto por defecto */
-    background-color: var(--card-bg); /* Fondo blanco */
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden; /* Recorta contenido que se salga (ej. esquinas redondeadas) */
     width: 100%;
     max-width: 1100px; /* Ancho máximo */
-    min-height: 85vh; /* Altura mínima */
-    opacity: 0; /* Inicialmente invisible para la transición */
-    transition: opacity 0.5s 0.1s ease-in; /* Transición de aparición */
+    opacity: 0; /* Inicialmente invisible */
+    margin: 2rem auto; /* Centrado y con margen vertical */
+    position: relative;
 }
 
-/* Clase usada por JS para mostrar el contenedor del quiz */
+/* Clase usada por JS para mostrar y configurar layout */
 .quiz-wrapper.visible {
-    display: flex; /* Cambia a flexbox para disposición sidebar+main */
     opacity: 1; /* Hace visible el contenedor */
+    transition: opacity 0.5s 0.1s ease-in; /* Transición de aparición */
+    overflow: hidden; /* Para border-radius y evitar desbordes */
+    min-height: unset; /* Anular cualquier altura mínima heredada */
+    position: relative; /* Contexto para posición absoluta */
+}
+
+/* Ajuste para que sidebar y main compartan el alto */
+.sidebar {
+    width: 90px;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem 0;
+    gap: 1rem;
+    overflow-y: auto; /* Permite scroll interno */
+    border-top-left-radius: var(--radius); /* Redondeo */
+    border-bottom-left-radius: var(--radius);
+    position: absolute; /* Posición absoluta */
+    top: 0; /* Alinea con la parte superior */
+    bottom: 0; /* Estira hasta la parte inferior */
+    left: 0; /* Alinea con el lado izquierdo */
+}
+
+.main {
+    margin-left: 90px; /* Deja espacio para la sidebar */
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem 2rem 2rem; /* Ajusta padding si es necesario */
+    min-width: 0; /* Necesario para flexbox en algunos casos */
+    min-height: 0; /* Permite que .main se encoja verticalmente si es necesario */
+    /* height: auto; */ /* Altura determinada por flex y contenido */
+    overflow-x: hidden;
+    /* Permite scroll vertical si el contenido excede la altura */
+    
+}
+
+main.quiz {
+    padding: 1.5rem 0.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea el contenido al inicio */
+    transition: opacity var(--transition), transform var(--transition);
+    opacity: 1; /* Visible por defecto */
+    transform: translateY(0);
+    flex: 1 1 auto; /* Ocupa espacio vertical disponible en .main */
+    min-height: 0; /* Permite encogerse */
+    overflow-y: auto; /* Scroll interno si la pregunta/opciones son largas */
+    
 }
 
 /* --- Sidebar --- */
 /* Estilos para la barra lateral de navegación de preguntas */
-.sidebar {
-    width: 90px; /* Ancho fijo */
-    background: var(--bg); /* Fondo gris claro */
-    border-right: 1px solid var(--border); /* Borde a la derecha */
-    display: flex; /* Usa flexbox */
-    flex-direction: column; /* Apila los elementos verticalmente */
-    align-items: center; /* Centra horizontalmente los elementos */
-    padding: 1.5rem 0;
-    overflow-y: auto; /* Permite scroll vertical si el contenido excede la altura */
-    flex-shrink: 0; /* Evita que la sidebar se encoja */
-}
-
-/* Estilos para cada item individual en la sidebar (representando una pregunta) */
 .sidebar div {
     width: 50px;
     height: 50px;
-    margin-bottom: 1rem;
     display: flex; /* Usa flexbox para centrar el número/icono */
-    align-items: center;
     justify-content: center;
     border-radius: 50%; /* Forma circular */
     font-weight: 600;
@@ -302,12 +337,13 @@ body {
     position: relative; /* Necesario para posicionar el pseudo-elemento ::before */
     transition: all var(--transition); /* Transición suave para interacciones */
     border: 2px solid transparent; /* Borde transparente por defecto */
+    flex-shrink: 0; /* Evita que la sidebar se encoja */
     font-size: 1rem;
 }
 
 /* Estilos al pasar el ratón sobre un item de la sidebar */
 .sidebar div:hover {
-    transform: scale(1.08); /* Ligero aumento de tamaño */
+    transform: scale(1.1); /* Ligero aumento de tamaño */
     background-color: var(--primary-light); /* Fondo más claro */
     color: var(--text-light); /* Texto blanco */
 }
@@ -319,16 +355,19 @@ body {
 
 /* Estilo para el item de la sidebar de la pregunta actualmente mostrada */
 .sidebar div.active {
-    box-shadow: 0 0 0 4px var(--secondary); /* Anillo de enfoque/activo */
-    transform: scale(1.08); /* Destacar con tamaño */
-    border-color: var(--secondary); /* Borde con color secundario */
+    background: var(--secondary);
+    color: #fff;
+    border-color: var(--primary);
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(76,37,252,0.15);
+    z-index: 2;
 }
 
 /* Estilos para el pseudo-elemento ::before que muestra el número o ícono de estado */
 .sidebar div::before {
     font-family: 'Poppins', sans-serif; /* Fuente para el contenido */
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1rem;
     position: absolute; /* Posiciona el pseudo-elemento sobre el div */
     display: flex;
     align-items: center;
@@ -340,7 +379,7 @@ body {
 /* Contenido del pseudo-elemento según el estado */
 .sidebar div.answered::before { content: '✔'; font-size: 1.8rem; }
 .sidebar div.skipped::before { content: '?'; font-size: 1.8rem; }
-.sidebar div.unanswered::before { content: attr(data-number); font-size: 1.1rem; font-weight: 600; } /* Muestra el número de la pregunta */
+.sidebar div.unanswered::before { content: attr(data-number); font-size: 1.5rem; font-weight: 600; } /* Muestra el número de la pregunta */
 
 /* Estilos para el estado final de los items de la sidebar (en la pantalla de resultados) */
 .sidebar div.result-correct { background-color: var(--accent-solid); border-color: var(--accent-dark); color: var(--text-light); } /* Correcta */
@@ -355,25 +394,50 @@ body {
 .sidebar div.result-skipped::before { content: '?'; }
 
 /* --- Área Principal --- */
-/* Estilos para la sección principal del quiz (contiene header, main.quiz, botones, resultados) */
-.main {
-    flex: 1; /* Permite que esta sección crezca para ocupar el espacio restante */
-    display: flex;
-    flex-direction: column; /* Apila el contenido verticalmente */
-    padding: 1.5rem 2.5rem;
-    background-color: var(--card-bg); /* Fondo blanco */
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto; /* Permite scroll vertical si el contenido excede la altura */
+
+@media (max-width: 768px) {
+    .buttons {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100vw;
+        border-radius: 0;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.07);
+        padding: 0.7rem 0.5rem;
+        background: var(--card-bg);
+    }
+    .quiz-wrapper {
+        padding-bottom: 75px; /* deja espacio para los botones fijos en móvil */
+    }
 }
 
-/* Estilos para el encabezado dentro de la sección principal */
+/* Estilos para el contenedor de la sidebar en pantallas pequeñas */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Ocupa todo el ancho */
+        flex-direction: row; /* Dispone items horizontalmente */
+        overflow-x: auto; /* Permite scroll horizontal en la sidebar */
+        padding: 0.5rem;
+        border-right: none; /* Elimina borde derecho */
+        border-bottom: 1px solid var(--border); /* Añade borde inferior */
+        order: 1; /* Coloca la sidebar encima del main */
+        flex-wrap: nowrap; /* Evita que los items de sidebar se envuelvan */
+        justify-content: flex-start; /* Alinea items al inicio */
+        align-items: center;
+    }
+    .sidebar div { width: 45px; height: 45px; margin-bottom: 0; margin-right: 0.8rem; flex-shrink: 0; } /* Ajusta items sidebar */
+    .sidebar div::before { font-size: 1.3rem; }
+}
+
+/* --- Header dentro de Main --- */
 header#quiz-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     position: relative; /* Necesario para posicionar los timers absolutos */
-    padding-top: 0.5rem;
-    min-height: 80px; /* Altura mínima para evitar colapso */
+    padding-top: 1.5rem; /* Aumentado para bajar el contenido */
+    min-height: unset; /* Eliminar altura mínima */
+    height: auto;
+    flex-shrink: 0;
 }
 
 /* Estilos para el título H1 dentro del encabezado */
@@ -387,21 +451,89 @@ header#quiz-header h1 {
 /* --- Timers --- */
 /* Contenedor de los temporizadores (Pregunta y Total) */
 .timers-container {
-    position: absolute; /* Posiciona los timers independientemente del flujo normal */
-    top: 1.5rem; /* Distancia desde arriba */
-    right: 2rem; /* Distancia desde la derecha */
-    display: flex; /* Usa flexbox para alinear los timers horizontalmente */
-    gap: 1rem; /* Espacio entre timers */
-    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
-    padding: 0.6rem 1.2rem;
+    position: absolute;
+    width:calc(100% - 1rem);
+    max-width: 85%;
+    margin: 0.5rem;
+    top: 5rem;
+    right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    background-color: rgba(221, 216, 216, 0.785);
+    padding: 0.5rem 2rem;
     border-radius: var(--radius);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12); /* Sombra sutil */
-    z-index: 10; /* Asegura que estén por encima de otros elementos */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    z-index: 1101;
+    transition: all 0.4s cubic-bezier(.4,1.3,.7,1.01);
+}
+
+#btn-pause-resume {
+    background: var(--primary);
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    z-index: 1101;
+    transition: all 0.3s cubic-bezier(.4,1.3,.7,1.01), transform 0.2s cubic-bezier(.4,1.3,.7,1.01);
+    transform: scale(1);
+}
+
+/* Estado especial: quiz pausado o resaltado */
+.quiz-wrapper.blur-background #btn-pause-resume,
+#btn-pause-resume.paused {
+    background: #fff;
+    border: 2.5px solid var(--primary);
+    color: var(--primary) !important;
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.20);
+    transform: scale(1.2);
+}
+
+#btn-pause-resume:hover, #btn-pause-resume:focus {
+    color: var(--primary);
+    background-color: var(--border-light);
+    transform: scale(1.1);  
+    box-shadow: 0 4px 12px rgba(0,0,0,0.20);
+}
+
+#btn-pause-resume:active {
+    transform: scale(0.97);
+}
+
+.quiz-wrapper.blur-background #btn-pause-resume svg {
+    color: var(--primary);
+    fill: var(--primary);
+}
+
+
+
+
+.quiz-wrapper.blur-background .timers-container {
+    /* Solo cambia el aspecto visual, NO la posición ni el tamaño */
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: 2.5px solid var(--primary);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.35);
+    color: var(--text-light);
+    /* NO tocar padding, width, ni nada de posición */
+}
+
+.quiz-wrapper.blur-background .timers-container .timer,
+.quiz-wrapper.blur-background .timers-container .time {
+    color: var(--text-light) !important;
 }
 
 /* Estilos para cada elemento de timer individual */
 .timer {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: var(--text-secondary); /* Color de texto secundario */
     display: flex; /* Usa flexbox para alinear etiqueta y tiempo */
@@ -412,13 +544,14 @@ header#quiz-header h1 {
 .timer .time {
     display: inline-block; /* Permite aplicar min-width */
     min-width: 55px; /* Asegura espacio suficiente para los dígitos */
+    width: 77px;
     text-align: right; /* Alinea el tiempo a la derecha */
     font-variant-numeric: tabular-nums; /* Alinea los dígitos verticalmente para que el ancho no cambie */
     color: var(--primary); /* Color principal */
     transition: color 0.3s ease; /* Transición para el cambio de color (warning/ahead) */
-    margin-left: 0.4rem;
+    margin-left: 0.8rem;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.8rem;
 }
 
 /* Clases para cambiar el color del tiempo según el estado */
@@ -433,7 +566,7 @@ header#quiz-header h1 {
     background: var(--border); /* Fondo gris del carril de la barra */
     border-radius: var(--radius);
     overflow: hidden; /* Oculta la parte de la barra que se sale de los bordes redondeados */
-    margin-top: 1.2rem;
+    margin-top: 6rem; /* Aumentado para bajar la barra de progreso (era 1.2rem) */
 }
 
 /* La barra de progreso interior que se llena */
@@ -455,7 +588,6 @@ header#quiz-header h1 {
 /* --- Contenedor Quiz --- */
 /* Estilos para el área donde se muestra la pregunta actual */
 main.quiz {
-    flex: 1; /* Permite que esta sección crezca */
     padding: 1.5rem 0.5rem;
     position: relative;
     display: flex;
@@ -465,7 +597,9 @@ main.quiz {
     transition: opacity var(--transition), transform var(--transition);
     opacity: 1; /* Visible por defecto */
     transform: translateY(0);
-    min-height: 300px; /* Altura mínima para evitar colapso en preguntas cortas */
+    flex: 1 1 auto; /* Ocupa espacio vertical disponible en .main */
+    min-height: 0; /* Permite encogerse */
+    overflow-y: auto; /* Scroll interno si la pregunta/opciones son largas */
 }
 
 /* Clases para animaciones de transición entre preguntas (usadas por JS) */
@@ -479,7 +613,7 @@ main.quiz.fade-in { opacity: 1; transform: translateY(0); } /* Aparece y vuelve 
 
 /* Estilos para el texto de la pregunta */
 .question {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary); /* Color de texto principal */
     margin-bottom: 2.5rem;
@@ -498,7 +632,7 @@ main.quiz.fade-in { opacity: 1; transform: translateY(0); } /* Aparece y vuelve 
 .options {
     list-style: none; /* Elimina los marcadores de lista */
     display: grid; /* Usa CSS Grid para la disposición de las opciones */
-    gap: 1.2rem; /* Espacio entre opciones */
+    gap: 1.1rem; /* Espacio entre opciones */
 }
 
 /* Estilos para cada item de lista (li) que envuelve una opción */
@@ -595,10 +729,13 @@ main.quiz.fade-in { opacity: 1; transform: translateY(0); } /* Aparece y vuelve 
     flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea en pantallas pequeñas */
     justify-content: space-between; /* Distribuye el espacio entre los botones */
     align-items: center;
-    margin-top: 3rem;
+    /* margin-top: 3rem; */ /* Cambiado por margin-top: auto */
     padding-top: 1.5rem;
     border-top: 1px solid var(--border); /* Borde superior */
     gap: 1rem; /* Espacio entre botones */
+    height: auto;
+    flex-shrink: 0; /* Evitar que los botones se encojan */
+    margin-top: auto; /* Empuja los botones al final de .main */
 }
 
 /* Estilos generales para todos los botones dentro de .buttons */
@@ -659,6 +796,8 @@ main.quiz.fade-in { opacity: 1; transform: translateY(0); } /* Aparece y vuelve 
     text-align: center; /* Centra el enlace */
     margin-top: 0.5rem;
     padding-bottom: 1rem; /* Espacio debajo */
+    height: auto;
+    flex-shrink: 0;
 }
 
 /* Estilos para el enlace de finalizar anticipadamente */
@@ -964,177 +1103,118 @@ a:focus-visible,
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
 }
 
-/*
-    Controla la visibilidad de los botones del modal
-    dependiendo del atributo data-modal-type en el overlay.
-*/
-/* Oculta los botones Confirmar y Cancelar en modals de tipo 'alert' */
-.modal-overlay[data-modal-type="alert"] .modal-btn.confirm,
-.modal-overlay[data-modal-type="alert"] .modal-btn.cancel {
-    display: none;
-}
-/* Oculta el botón OK en modals de tipo 'confirm' */
-.modal-overlay[data-modal-type="confirm"] .modal-btn.ok {
-    display: none;
+/* ... */
+
+/* Botón de Pausa/Reanudar junto a los timers */
+#btn-pause-resume {
+    background: #fff;
+    border: 2.5px solid var(--primary);
+    color: var(--primary) !important;
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.20);
+    transform: scale(1.2);
 }
 
-/* --- Estilos Responsivos --- */
-/*
-    Sección de Media Queries para ajustar el diseño en diferentes tamaños de pantalla.
-    Define puntos de quiebre y aplica estilos específicos para cada rango.
-*/
-
-/* Estilos para pantallas hasta 1150px */
-@media (max-width: 1150px) {
-    .quiz-wrapper {
-        max-width: 95%; /* Reduce el ancho máximo del contenedor principal */
-    }
-    .main {
-        padding: 1.5rem 2rem; /* Reduce el padding lateral del área principal */
-    }
+.quiz-wrapper.blur-background #btn-pause-resume svg {
+    color: var(--primary);
+    fill: var(--primary);
 }
 
-/* Estilos para pantallas hasta 992px (Típico tablet grande) */
-@media (max-width: 992px) {
-    .quiz-wrapper {
-        min-height: 90vh; /* Aumenta la altura mínima del contenedor */
-    }
-    .main {
-        padding: 1.5rem; /* Reduce aún más el padding del área principal */
-    }
-    header#quiz-header {
-        padding-top: 3.5rem; /* Aumenta padding superior para dar espacio a timers */
-        min-height: 70px;
-    }
-    header#quiz-header h1 {
-        font-size: 1.8rem; /* Reduce el tamaño del título H1 */
-    }
-    .timers-container {
-        top: 1rem; /* Ajusta la posición de los timers */
-        right: 1.5rem;
-        padding: 0.4rem 0.8rem;
-        gap: 0.8rem;
-    }
-    .timer { font-size: 0.85rem; } /* Reduce el tamaño de fuente de los timers */
-    .timer .time { min-width: 50px; font-size: 0.9rem;} /* Ajusta el tiempo */
-
-    .question { font-size: 1.2rem; } /* Reduce el tamaño de fuente de la pregunta */
-    .options li { padding: 0.9rem 1.1rem; } /* Reduce el padding de las opciones */
-    .options label { font-size: 1rem; } /* Reduce el tamaño de fuente de las opciones */
-
-    .buttons button { padding: 0.8rem 1.5rem; font-size: 0.9rem; } /* Reduce padding y fuente de botones */
-
-    .score-summary { grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 0.8rem;} /* Ajusta grid de resumen */
-    .score-summary .score-value { font-size: 2rem; } /* Reduce tamaño de valores de puntuación */
-
-    .sidebar { width: 80px; } /* Reduce ancho de la sidebar */
-    .sidebar div { width: 45px; height: 45px; } /* Reduce tamaño de items de sidebar */
-    .sidebar div::before { font-size: 1.3rem; } /* Reduce tamaño de número/icono en sidebar */
-
-    .modal-content { max-width: 400px; padding: 1.8rem 2rem;} /* Ajusta modal */
-    .modal-title-text { font-size: 1.5rem;}
-    #modal-message { font-size: 1rem;}
+#btn-pause-resume:hover, #btn-pause-resume:focus {
+    color: var(--primary);
+    background-color: var(--border-light);
+    transform: scale(1.1);  
+    box-shadow: 0 4px 12px rgba(0,0,0,0.20);
+}
+#btn-pause-resume:active {
+    background: var(--primary-dark, #0056b3); /* Más oscuro al presionar */
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.13);
+    transform: scale(0.96);
 }
 
-/* Estilos para pantallas hasta 768px (Típico tablet pequeña o móvil grande) */
-@media (max-width: 768px) {
-    body {
-        padding: 0; /* Elimina el padding del body */
-        align-items: stretch; /* Permite que el contenido principal se estire verticalmente */
-    }
-    .quiz-wrapper {
-        flex-direction: column; /* Apila sidebar y main verticalmente */
-        max-width: 100%; /* Ocupa todo el ancho */
-        min-height: 100vh; /* Ocupa toda la altura */
-        border-radius: 0; /* Elimina bordes redondeados */
-        box-shadow: none; /* Elimina sombra */
-    }
-    .sidebar {
-        width: 100%; /* Ocupa todo el ancho */
-        flex-direction: row; /* Dispone items horizontalmente */
-        overflow-x: auto; /* Permite scroll horizontal en la sidebar */
-        padding: 0.5rem;
-        border-right: none; /* Elimina borde derecho */
-        border-bottom: 1px solid var(--border); /* Añade borde inferior */
-        order: 1; /* Coloca la sidebar encima del main */
-        flex-wrap: nowrap; /* Evita que los items de sidebar se envuelvan */
-        justify-content: flex-start; /* Alinea items al inicio */
-        align-items: center;
-        height: 65px; /* Altura fija para la sidebar horizontal */
-    }
-    .sidebar div { width: 45px; height: 45px; margin-bottom: 0; margin-right: 0.8rem; flex-shrink: 0; } /* Ajusta items sidebar */
-    .sidebar div::before { font-size: 1.3rem; }
-
-    .main {
-        padding: 1rem; /* Reduce padding del main */
-        order: 2; /* Coloca el main debajo de la sidebar */
-        flex: 1; /* Permite que crezca */
-        display: flex;
-        flex-direction: column;
-    }
-    header#quiz-header {
-        margin-bottom: 1rem;
-        padding-top: 0; /* Elimina padding superior */
-        min-height: 0;
-    }
-    header#quiz-header h1 { font-size: 1.6rem; } /* Reduce título H1 */
-    /* Los timers se mueven a una posición estática y centrada */
-    .timers-container { position: static; margin: 0.5rem auto 1rem; justify-content: center; width: fit-content; order: -1; }
-
-    .question { font-size: 1.1rem; margin-bottom: 1.8rem; } /* Ajusta pregunta */
-    .options { gap: 0.8rem; } /* Reduce espacio entre opciones */
-    .options li { padding: 0.9rem; } /* Reduce padding de opciones */
-    .options label { font-size: 0.95rem; } /* Ajusta fuente de opciones */
-
-    .buttons {
-        flex-direction: column; /* Apila los botones verticalmente */
-        gap: 0.8rem;
-        margin-top: auto; /* Empuja los botones al final del contenedor main */
-        padding-top: 1.5rem;
-    }
-    .buttons button { width: 100%; padding: 1rem; font-size: 1rem;} /* Botones ocupan todo el ancho */
-    #early-finish-container { margin-top: 1rem; padding-bottom: 0.5rem;} /* Ajusta enlace finalizar anticipado */
-
-    .score-summary { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1rem; } /* Ajusta grid de resumen a 2 columnas */
-    .score-summary .score-value { font-size: 1.8rem; } /* Reduce tamaño valores */
-    #results-container { padding: 1.5rem 1rem; } /* Reduce padding resultados */
-    #results-container h2 { font-size: 1.8rem; } /* Reduce título resultados */
-    .chart-container { max-width: 90%; } /* Ajusta ancho gráfico */
-    #infographic-chart { max-height: 280px; } /* Ajusta altura gráfico */
-
-    .welcome-content { padding: 2rem; } /* Ajusta bienvenida */
-    .welcome-content h1 { font-size: 2rem; }
-    .welcome-content p { font-size: 1rem; }
-    .quiz-info-grid { grid-template-columns: 1fr; gap: 1rem; padding: 1rem 0; margin-bottom: 2rem; } /* Grid bienvenida a 1 columna */
-    .info-value { font-size: 2.2rem; }
-
-    .modal-content { width: 90%; padding: 1.5rem; } /* Ajusta modal */
-    .modal-title-text { font-size: 1.4rem;}
-    #modal-message { font-size: 1rem;}
-    .modal-buttons { flex-direction: column; } /* Botones modal apilados */
+#btn-pause-resume svg {
+    width: 50px; /* Tamaño del icono */
+    height: 50px;
+    pointer-events: none;
+    transform: scale(1.3);
 }
 
-/* Estilos para pantallas hasta 480px (Móvil pequeño) */
-@media (max-width: 480px) {
-    header#quiz-header h1 { font-size: 1.4rem; } /* Reduce título H1 */
-    .timers-container { gap: 0.8rem; flex-wrap: wrap; justify-content: center;} /* Timers envueltos y centrados */
-    .timer { font-size: 0.8rem; flex-basis: 45%; justify-content: center;} /* Ajusta timers */
+/* Contenedor genérico para Overlays (como el de pausa o modales) */
+.overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
 
-    .question { font-size: 1rem; } /* Reduce tamaño de pregunta */
-    .options li { padding: 0.8rem; } /* Reduce padding opciones */
-    .options label { font-size: 0.9rem; } /* Ajusta fuente opciones */
-    .buttons button { padding: 0.9rem; font-size: 0.95rem; } /* Ajusta botones */
+.overlay-container.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
 
-    .score-summary { grid-template-columns: 1fr; gap: 0.8rem;} /* Grid resumen a 1 columna */
-    .score-summary div { padding-bottom: 0.5rem; }
-    #results-container { padding: 1rem 0.8rem; } /* Reduce padding resultados */
+/* Contenido dentro del overlay */
+.overlay-content {
+    background-color: var(--background-alt);
+    padding: 2.5rem 3rem;
+    border-radius: var(--radius-large);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+}
 
-    .welcome-content { padding: 1.5rem; } /* Ajusta bienvenida */
-    .welcome-content h1 { font-size: 1.8rem; }
-    .info-value { font-size: 2rem; }
+.overlay-content h2 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
 
-    .modal-content { padding: 1.2rem; } /* Ajusta modal */
-    .modal-title-text { font-size: 1.3rem;}
-    #modal-message { font-size: 0.95rem;}
-    .modal-btn { width: 100%; } /* Botones modal ocupan todo el ancho */
+.overlay-content p {
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.overlay-content button {
+    /* Estilos similares a #btn-start o .btn-primary */
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-transform: uppercase;
+}
+
+.overlay-content button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Clase para aplicar desenfoque al fondo cuando el overlay está activo */
+
+
+
+.blur-background.no-blur > *:not(.overlay-container) {
+    filter: none;
+}
+
+.quiz-wrapper.blur-background .main,
+.quiz-wrapper.blur-background .sidebar {
+    filter: blur(0.3rem);
+    transition: filter 0.3s ease;
 }
